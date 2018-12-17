@@ -8,8 +8,7 @@ import (
 )
 
 const (
-	//projectsDir = "/home/andrzej.rehmann/projects"
-	projectsDir = "/root"
+	projectsDir = "/home/andrzej.rehmann/projects"
 )
 
 func main() {
