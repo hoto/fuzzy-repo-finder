@@ -2,9 +2,9 @@
 
 
 ### TODO:
-* Read config file from ~/.fuzzy-repo-finder/config.yml
-* Pass flags which can override config.yml
-* Save found repositories in ~/.fuzzy-repo-finder/repos.yml
+* Read config file from `~/.fuzzy-repo-finder/config.yml`
+* Pass flags which can override `config.yml`
+* Save found repositories in `~/.fuzzy-repo-finder/repos.yml`
 * Display cached repos from repos.yml before updating with real data
 * Sort repos by usage or alphabetically
 * Show dirty status of a repository using `*`
