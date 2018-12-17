@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"strings"
+
 	flag "github.com/ogier/pflag"
 )
 
@@ -10,9 +12,12 @@ var (
 )
 
 func main() {
-	fmt.Println("Hello, World")
 	flag.Parse()
-	fmt.Println(user)
+	users := strings.Split(user, ",")
+	fmt.Printf("Searching users: %s\n", users)
+	result := getUsers(user)
+	fmt.Println(`Name: `, result.Name)
+	fmt.Println(`Location: `, result.Location)
 }
 
 func init() {
