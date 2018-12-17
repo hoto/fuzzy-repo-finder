@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 )
@@ -12,19 +11,26 @@ const (
 )
 
 func main() {
-	err := filepath.Walk(projectsDir, findGitProjects)
-
-	if err != nil {
-		log.Println(err)
+	projects := findProjects(projectsDir)
+	for _, project := range projects {
+		fmt.Println(project)
 	}
 }
 
-func findGitProjects(path string, file os.FileInfo, err error) error {
+func findProjects(dir string) []string {
+	var fileList []string
+	err := filepath.Walk(dir,
+		func(path string, file os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if file.IsDir() && file.Name() == ".git" {
+				fileList = append(fileList, path)
+			}
+			return nil
+		})
 	if err != nil {
-		return err
+		fmt.Println(err)
 	}
-	if file.IsDir() && file.Name() == ".git" {
-		fmt.Println(path)
-	}
-	return nil
+	return fileList
 }
