@@ -1,4 +1,8 @@
 .idea/
 *.iml
 
+# build binaries
 fuzzy-repo-finder
+fuzzy-repo-finder.test
+
+vendor/
