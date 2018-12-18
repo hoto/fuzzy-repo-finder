@@ -6,13 +6,12 @@ import (
 )
 
 const (
-	projectsDir = "/home/andrzej.rehmann/projects"
+	projectsRoot = "/home/andrzej.rehmann/projects"
 )
 
 func main() {
-	projects := finder.FindProjects(projectsDir)
+	projects := finder.FindProjects(projectsRoot)
 	for _, project := range projects {
 		fmt.Println(project)
 	}
 }
-
