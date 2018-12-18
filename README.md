@@ -8,7 +8,7 @@ Command line tool for git projects navigation.
 * Read config file from `~/.fuzzy-repo-finder/config.yml`
 * Pass flags which can override `config.yml`
 * Save found repositories in `~/.fuzzy-repo-finder/repos.yml`
-* Display cached repos from repos.yml before updating with real data
+* Display cached repos from `repos.yml` before updating with real data
 * Sort repos by usage or alphabetically
 * Show dirty status of a repository using `*`
 * How I want the presentation to look like:
@@ -54,4 +54,4 @@ mango
 ```
 
 ---
-Following [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
+_Following_ [_Standard Go Project Layout_](https://github.com/golang-standards/project-layout)
