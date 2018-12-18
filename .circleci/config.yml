@@ -4,7 +4,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: .circleci/golang:1.11
+      - image: golang:1.11.3-alpine3.8
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
