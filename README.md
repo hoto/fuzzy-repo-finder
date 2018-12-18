@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/hoto/fuzzy-repo-finder)](https://goreportcard.com/report/github.com/hoto/fuzzy-repo-finder)
+[![Release](https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square)](https://github.com/hoto/fuzzy-repo-finder/releases/latest)
 # Fuzzy Repo Finder
 
 
@@ -49,3 +51,6 @@ mango
     purchase-notifications (29)
 
 ```
+
+---
+Following [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
