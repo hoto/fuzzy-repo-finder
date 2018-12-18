@@ -3,14 +3,15 @@ package main
 import (
 	"fmt"
 	"github.com/hoto/fuzzy-repo-finder/internal/finder"
+	"os"
 )
 
-const (
-	projectsRoot = "/home/andrzej.rehmann/projects"
+var (
+	projectsRoot = os.Getenv("HOME") + "/projects"
 )
 
 func main() {
-	projects := finder.FindProjects(projectsRoot)
+	projects := finder.FindGitDirectories(projectsRoot)
 	for _, project := range projects {
 		fmt.Println(project)
 	}

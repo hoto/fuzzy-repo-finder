@@ -2,13 +2,15 @@ package finder
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 	"strings"
 )
 
-func FindProjects(dir string) []Project {
-	gitDirs := findGitDirectories(dir)
+type IO struct {
+	filesystem Filesystem
+}
+
+func (io IO) FindProjects(dir string) []Project {
+	gitDirs := io.filesystem.FindGitDirectories(dir)
 
 	var projects []Project
 	for _, projectPath := range gitDirs {
@@ -19,28 +21,6 @@ func FindProjects(dir string) []Project {
 		projects = append(projects, project)
 	}
 	return projects
-}
-
-func findGitDirectories(dir string) []string {
-	var gitDirs []string
-	err := filepath.Walk(dir,
-		func(path string, file os.FileInfo, err error) error {
-			if err != nil {
-				return err
-			}
-			if isGitDirectory(file) {
-				gitDirs = append(gitDirs, path)
-			}
-			return nil
-		})
-	if err != nil {
-		fmt.Println(err)
-	}
-	return gitDirs
-}
-
-func isGitDirectory(file os.FileInfo) bool {
-	return file.IsDir() && file.Name() == ".git"
 }
 
 type Project struct {
