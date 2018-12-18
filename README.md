@@ -2,6 +2,7 @@
 [![Release](https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square)](https://github.com/hoto/fuzzy-repo-finder/releases/latest)
 # Fuzzy Repo Finder
 
+Command line tool for git projects navigation.
 
 ### TODO:
 * Read config file from `~/.fuzzy-repo-finder/config.yml`
