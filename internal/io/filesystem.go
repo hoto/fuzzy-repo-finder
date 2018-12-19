@@ -13,7 +13,7 @@ func NewFilesystem(disk IDisk) Filesystem {
 	return Filesystem{disk}
 }
 
-func (fs Filesystem) FindProjects(root string) []project.Project {
+func (fs Filesystem) FindGitProjects(root string) []project.Project {
 	gitDirs := fs.disk.FindDirs(root, ".git")
 	var projects []project.Project
 	for _, projectPath := range gitDirs {

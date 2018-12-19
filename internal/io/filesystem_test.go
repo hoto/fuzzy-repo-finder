@@ -7,8 +7,9 @@ import (
 	"testing"
 )
 
-const (
-	directory = "directory"
+var (
+	directory     = "directory"
+	emptyProjects = []project.Project{}
 )
 
 func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
@@ -16,7 +17,7 @@ func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
 	disk.On("FindDirs", directory, ".git").Return([]string{})
 	filesystem := Filesystem{disk}
 
-	projects := filesystem.FindProjects(directory)
+	projects := filesystem.FindGitProjects(directory)
 
 	var expectedProjects []project.Project
 	assert.Equal(t, projects, expectedProjects)
