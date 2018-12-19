@@ -7,20 +7,37 @@ import (
 	"testing"
 )
 
+const (
+	projectsRoot = "/projects"
+	git          = ".git"
+)
+
 var (
-	directory     = "directory"
-	emptyProjects = []project.Project{}
+	emptyProjects []project.Project
 )
 
 func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
 	disk := new(MockDisk)
-	disk.On("FindDirs", directory, ".git").Return([]string{})
+	disk.On("FindDirs", projectsRoot, git).Return([]string{})
 	filesystem := Filesystem{disk}
 
-	projects := filesystem.FindGitProjects(directory)
+	projects := filesystem.FindGitProjects(projectsRoot)
 
-	var expectedProjects []project.Project
-	assert.Equal(t, projects, expectedProjects)
+	assert.Equal(t, emptyProjects, projects)
+}
+
+func Test_should_return_matching_project_with_no_group(t *testing.T) {
+	disk := new(MockDisk)
+	disk.On("FindDirs", projectsRoot, git).Return([]string{
+		"/projects/project1/.git",
+	})
+	filesystem := Filesystem{disk}
+
+	projects := filesystem.FindGitProjects(projectsRoot)
+
+	project1 := project.Project{Name: "project1", Group: "", FullPath: "/projects/project1"}
+	expectedProjects := []project.Project{project1}
+	assert.Equal(t, expectedProjects, projects)
 }
 
 type MockDisk struct {
