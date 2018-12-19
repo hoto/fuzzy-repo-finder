@@ -26,7 +26,7 @@ func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
 	assert.Equal(t, emptyProjects, projects)
 }
 
-func Test_should_return_matching_projects_with_no_group(t *testing.T) {
+func Test_should_return_matching_projects(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{
 		"/home/user/projects/project1/.git",
