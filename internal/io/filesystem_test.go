@@ -26,17 +26,19 @@ func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
 	assert.Equal(t, emptyProjects, projects)
 }
 
-func Test_should_return_matching_project_with_no_group(t *testing.T) {
+func Test_should_return_matching_projects_with_no_group(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{
 		"/projects/project1/.git",
+		"/projects/project2/.git",
 	})
 	filesystem := Filesystem{disk}
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
 	project1 := project.Project{Name: "project1", Group: "", FullPath: "/projects/project1"}
-	expectedProjects := []project.Project{project1}
+	project2 := project.Project{Name: "project2", Group: "", FullPath: "/projects/project2"}
+	expectedProjects := []project.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects)
 }
 
