@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	projectsRoot = "/projects"
+	projectsRoot = "/home/user/projects"
 	git          = ".git"
 )
 
@@ -29,15 +29,15 @@ func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
 func Test_should_return_matching_projects_with_no_group(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{
-		"/projects/project1/.git",
-		"/projects/project2/.git",
+		"/home/user/projects/project1/.git",
+		"/home/user/projects/project2/.git",
 	})
 	filesystem := Filesystem{disk}
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	project1 := project.Project{Name: "project1", Group: "", FullPath: "/projects/project1"}
-	project2 := project.Project{Name: "project2", Group: "", FullPath: "/projects/project2"}
+	project1 := project.Project{Name: "project1", Group: "", FullPath: "/home/user/projects/project1"}
+	project2 := project.Project{Name: "project2", Group: "", FullPath: "/home/user/projects/project2"}
 	expectedProjects := []project.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects)
 }
@@ -45,15 +45,15 @@ func Test_should_return_matching_projects_with_no_group(t *testing.T) {
 func Test_should_return_matching_projects_inside_single_level_groups(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{
-		"/projects/dirA/project1/.git",
-		"/projects/dirB/project2/.git",
+		"/home/user/projects/dirA/project1/.git",
+		"/home/user/projects/dirB/project2/.git",
 	})
 	filesystem := Filesystem{disk}
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	project1 := project.Project{Name: "project1", Group: "dirA", FullPath: "/projects/dirA/project1"}
-	project2 := project.Project{Name: "project2", Group: "dirB", FullPath: "/projects/dirB/project2"}
+	project1 := project.Project{Name: "project1", Group: "dirA", FullPath: "/home/user/projects/dirA/project1"}
+	project2 := project.Project{Name: "project2", Group: "dirB", FullPath: "/home/user/projects/dirB/project2"}
 	expectedProjects := []project.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects)
 }
@@ -61,8 +61,8 @@ func Test_should_return_matching_projects_inside_single_level_groups(t *testing.
 func Test_should_return_matching_projects_inside_multiple_level_groups(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{
-		"/projects/dirA1/dirA2/dirA3/project1/.git",
-		"/projects/dirB1/dirB2/dirB3/project2/.git",
+		"/home/user/projects/dirA1/dirA2/dirA3/project1/.git",
+		"/home/user/projects/dirB1/dirB2/dirB3/project2/.git",
 	})
 	filesystem := Filesystem{disk}
 
@@ -71,12 +71,12 @@ func Test_should_return_matching_projects_inside_multiple_level_groups(t *testin
 	project1 := project.Project{
 		Name:     "project1",
 		Group:    "dirA1/dirA2/dirA3",
-		FullPath: "/projects/dirA1/dirA2/dirA3/project1",
+		FullPath: "/home/user/projects/dirA1/dirA2/dirA3/project1",
 	}
 	project2 := project.Project{
 		Name:     "project2",
 		Group:    "dirB1/dirB2/dirB3",
-		FullPath: "/projects/dirB1/dirB2/dirB3/project2",
+		FullPath: "/home/user/projects/dirB1/dirB2/dirB3/project2",
 	}
 	expectedProjects := []project.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects)

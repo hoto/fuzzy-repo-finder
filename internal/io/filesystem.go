@@ -24,20 +24,18 @@ func (fs Filesystem) FindGitProjects(root string) []project.Project {
 	for _, path := range gitDirs {
 		tokens := strings.Split(path, separator)
 		fullPath := strings.Join(tokens[0:len(tokens)-1], separator)
-		group := pathDiff(root, fullPath)
+		group := diffPath(root, fullPath)
 		name := tokens[len(tokens)-2]
 		projects = append(projects, project.Project{FullPath: fullPath, Group: group, Name: name})
 	}
 	return projects
 }
 
-// tdd made me do it
-func pathDiff(root string, fullPath string) string {
-	numberOfRootPathTokens := len(strings.Split(root, separator))
-	fullPathSplitByRootPathTokens := strings.SplitAfterN(fullPath, separator, numberOfRootPathTokens+1)
-	pathWithoutRoot := fullPathSplitByRootPathTokens[2]
-	pathWithoutRootTokens := strings.Split(pathWithoutRoot, separator)
-	groupTokens := pathWithoutRootTokens[0 : len(pathWithoutRootTokens)-1]
-	group := strings.Join(groupTokens, separator)
-	return group
+func diffPath(root string, fullPath string) string {
+	fullPathTokens := strings.Split(fullPath, separator)
+	pathToProject := strings.Join(fullPathTokens[0:len(fullPathTokens)-1], separator)
+	if len(root) == len(pathToProject) {
+		return ""
+	}
+	return pathToProject[len(root)+1:]
 }
