@@ -36,8 +36,16 @@ func Test_should_return_matching_projects_with_no_group(t *testing.T) {
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	project1 := project.Project{Name: "project1", Group: "", FullPath: "/home/user/projects/project1"}
-	project2 := project.Project{Name: "project2", Group: "", FullPath: "/home/user/projects/project2"}
+	project1 := project.Project{
+		Name:     "project1",
+		Group:    "",
+		FullPath: "/home/user/projects/project1",
+	}
+	project2 := project.Project{
+		Name:     "project2",
+		Group:    "",
+		FullPath: "/home/user/projects/project2",
+	}
 	expectedProjects := []project.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects)
 }
@@ -52,8 +60,16 @@ func Test_should_return_matching_projects_inside_single_level_groups(t *testing.
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	project1 := project.Project{Name: "project1", Group: "dirA", FullPath: "/home/user/projects/dirA/project1"}
-	project2 := project.Project{Name: "project2", Group: "dirB", FullPath: "/home/user/projects/dirB/project2"}
+	project1 := project.Project{
+		Name:     "project1",
+		Group:    "dirA",
+		FullPath: "/home/user/projects/dirA/project1",
+	}
+	project2 := project.Project{
+		Name:     "project2",
+		Group:    "dirB",
+		FullPath: "/home/user/projects/dirB/project2",
+	}
 	expectedProjects := []project.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects)
 }
