@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/hoto/fuzzy-repo-finder/internal/finder"
+	"github.com/hoto/fuzzy-repo-finder/internal/io"
 	"os"
 )
 
@@ -11,7 +11,8 @@ var (
 )
 
 func main() {
-	projects := finder.FindGitDirectories(projectsRoot)
+	fs := io.NewFilesystem(io.Disk{})
+	projects := fs.FindProjects(projectsRoot)
 	for _, project := range projects {
 		fmt.Println(project)
 	}
