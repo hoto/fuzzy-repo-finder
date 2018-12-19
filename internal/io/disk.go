@@ -12,13 +12,13 @@ type IDisk interface {
 
 type Disk struct{}
 
-func (Disk) FindDirs(dir string, dirName string) []string {
+func (Disk) FindDirs(dir string, matchDir string) []string {
 	var matchingDirs []string
 	appendMatchingDirs := func(path string, file os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
-		if matchesDirName(file, dirName) {
+		if matchesDirName(file, matchDir) {
 			matchingDirs = append(matchingDirs, path)
 		}
 		return nil
