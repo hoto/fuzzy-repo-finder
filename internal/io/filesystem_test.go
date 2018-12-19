@@ -26,7 +26,7 @@ type MockDisk struct {
 	mock.Mock
 }
 
-func (mock *MockDisk) FindDirs(root string, matchDir string) []string {
-	//args := mock.Called(root)
-	return []string{}
+func (m *MockDisk) FindDirs(root string, matchDir string) []string {
+	args := m.Called(root, matchDir)
+	return args.Get(0).([]string)
 }
