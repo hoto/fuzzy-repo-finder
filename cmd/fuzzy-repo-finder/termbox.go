@@ -13,14 +13,14 @@ func main() {
 
 func run() int {
 	terminal := io.NewTerminal()
-	terminal.Init()
+	keyboard := terminal.Init()
 	defer terminal.Close()
 
 	for {
 		terminal.Clear()
 		terminal.Flush()
 
-		switch pressedKey := terminal.WaitForKeyPress(); pressedKey {
+		switch pressedKey := keyboard.WaitForKeyPress(); pressedKey {
 		case key.CtrlC:
 			return 1
 		case key.Backspace:
