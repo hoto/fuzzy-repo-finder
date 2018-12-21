@@ -12,9 +12,9 @@ var (
 )
 
 func main() {
-	fs := io.NewFilesystem(io.Disk{})
-	projects := fs.FindGitProjects(projectsRoot)
-	goProjects := fs.FindGitProjects(goProjectsRoot)
+	filesystem := io.NewFilesystem(io.Disk{})
+	projects := filesystem.FindGitProjects(projectsRoot)
+	goProjects := filesystem.FindGitProjects(goProjectsRoot)
 	for _, project := range projects {
 		fmt.Println(project)
 	}
