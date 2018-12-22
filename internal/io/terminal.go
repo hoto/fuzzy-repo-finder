@@ -15,28 +15,47 @@ func NewTerminal() *Terminal {
 //
 //      keyboard := terminal.Init()
 //      defer terminal.Close()
-func (t Terminal) Init() *Keyboard {
+func (t Terminal) Init() {
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
 	}
-	return newKeyboard()
 }
 
 func (t Terminal) Close() {
 	termbox.Close()
 }
 
-func (t Terminal) Flush() {
+func (t Terminal) Cycle() int {
+	event := termbox.PollEvent()
+	if event.Type == termbox.EventKey {
+		char := event.Ch
+		switch event.Key {
+		case 0:
+			t.writeLine(char)
+		case termbox.KeyCtrlC:
+			return 1
+		}
+	}
+	return 0
+}
+
+func (t Terminal) flush() {
 	err := termbox.Flush()
 	if err != nil {
 		panic(err)
 	}
 }
 
-func (t Terminal) Clear() {
+func (t Terminal) clear() {
 	err := termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (t Terminal) writeLine(char rune) {
+	t.clear()
+	termbox.SetCell(1, 2, char, termbox.ColorGreen, termbox.ColorDefault)
+	t.flush()
 }
