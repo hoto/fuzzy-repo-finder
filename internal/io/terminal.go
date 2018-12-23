@@ -4,7 +4,9 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-type Terminal struct{}
+type Terminal struct {
+	query Query
+}
 
 func NewTerminal() *Terminal {
 	return &Terminal{}
@@ -26,13 +28,16 @@ func (t Terminal) Close() {
 	termbox.Close()
 }
 
-func (t Terminal) Cycle() int {
+func (t *Terminal) Cycle() int {
 	event := termbox.PollEvent()
 	if event.Type == termbox.EventKey {
-		char := event.Ch
 		switch event.Key {
 		case 0:
-			t.writeLine(char)
+			t.query.Append(event.Ch)
+			t.writeLine(t.query.Read())
+		case termbox.KeyBackspace, termbox.KeyBackspace2:
+			t.query.DeleteLastChar()
+			t.writeLine(t.query.Read())
 		case termbox.KeyCtrlC:
 			return 1
 		}
@@ -54,8 +59,10 @@ func (t Terminal) clear() {
 	}
 }
 
-func (t Terminal) writeLine(char rune) {
+func (t Terminal) writeLine(runes []rune) {
 	t.clear()
-	termbox.SetCell(1, 2, char, termbox.ColorGreen, termbox.ColorDefault)
+	for i, char := range runes {
+		termbox.SetCell(i, 0, char, termbox.ColorGreen, termbox.ColorDefault)
+	}
 	t.flush()
 }
