@@ -50,7 +50,7 @@ func Test_should_return_matching_projects(t *testing.T) {
 	assert.Equal(t, expectedProjects, projects)
 }
 
-func Test_should_return_matching_projects_inside_single_level_group(t *testing.T) {
+func Test_should_return_matching_projects_inside_a_group(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{
 		"/home/user/projects/dirA/project1/.git",
@@ -74,7 +74,7 @@ func Test_should_return_matching_projects_inside_single_level_group(t *testing.T
 	assert.Equal(t, expectedProjects, projects)
 }
 
-func Test_should_return_matching_projects_inside_multiple_levels_group(t *testing.T) {
+func Test_should_return_matching_projects_inside_a_multiple_level_group(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{
 		"/home/user/projects/dirA1/dirA2/dirA3/project1/.git",
