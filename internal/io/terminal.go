@@ -74,7 +74,7 @@ func (t *Terminal) displayProjects() {
 	offset := 1
 	for projectIndex, _project := range t.projects {
 		for runeIndex, char := range []rune(_project.Name) {
-			termbox.SetCell(runeIndex, projectIndex+offset, char, termbox.ColorGreen, termbox.ColorDefault)
+			termbox.SetCell(runeIndex, projectIndex+offset, char, termbox.ColorDefault, termbox.ColorDefault)
 		}
 	}
 }
