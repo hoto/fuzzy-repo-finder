@@ -6,8 +6,9 @@ import (
 )
 
 const (
-	queryLineVerticalOffset    = 0
-	projectsLineVerticalOffset = 1
+	queryVerticalOffset         = 0
+	projectsVerticalOffset      = 1
+	projectNameHorizontalOffset = 4
 )
 
 type Terminal struct {
@@ -68,21 +69,49 @@ func (t *Terminal) Cycle() ExitCode {
 }
 
 func (t *Terminal) displayQuery() {
-	for i, char := range t.queryPrompt {
-		termbox.SetCell(i, queryLineVerticalOffset, char, termbox.ColorMagenta, termbox.ColorDefault)
+	for charHorizontalOffset, char := range t.queryPrompt {
+		termbox.SetCell(
+			charHorizontalOffset,
+			queryVerticalOffset,
+			char,
+			termbox.ColorMagenta,
+			termbox.ColorDefault)
 	}
-	horizontalOffset := len(t.queryPrompt)
-	for i, char := range t.query.Read() {
-		termbox.SetCell(i+horizontalOffset, queryLineVerticalOffset, char, termbox.ColorGreen, termbox.ColorDefault)
+	promptHorizontalOffset := len(t.queryPrompt)
+	for charHorizontalOffset, char := range t.query.Read() {
+		termbox.SetCell(
+			promptHorizontalOffset+charHorizontalOffset,
+			queryVerticalOffset,
+			char,
+			termbox.ColorGreen,
+			termbox.ColorDefault)
 	}
 }
 
 func (t *Terminal) displayProjects() {
-	for projectIndex, project := range t.projects.List() {
-		for charIndex, char := range []rune(project.Name) {
+	currentLineNum := projectsVerticalOffset
+	for _, group := range t.projects.ListGroups() {
+		for charOffset, char := range []rune(group) {
 			termbox.SetCell(
-				charIndex, projectIndex+projectsLineVerticalOffset, char,
-				termbox.ColorDefault, termbox.ColorDefault)
+				charOffset,
+				currentLineNum,
+				char,
+				termbox.ColorYellow,
+				termbox.ColorDefault)
+		}
+		currentLineNum += 1
+		for _, project := range t.projects.List() {
+			if project.Group == group {
+				for charOffset, char := range []rune(project.Name) {
+					termbox.SetCell(
+						projectNameHorizontalOffset+charOffset,
+						currentLineNum,
+						char,
+						termbox.ColorDefault,
+						termbox.ColorDefault)
+				}
+				currentLineNum += 1
+			}
 		}
 	}
 }
