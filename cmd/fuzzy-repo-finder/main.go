@@ -14,8 +14,11 @@ var (
 func main() {
 	filesystem := io.NewFilesystem(io.Disk{})
 	projects := filesystem.FindGitProjects(projectsRoot)
-	//goProjects := filesystem.FindGitProjects(goProjectsRoot)
-	os.Exit(run(projects))
+	goProjects := filesystem.FindGitProjects(goProjectsRoot)
+	allProjects := proj.NewProjects()
+	allProjects.AddAll(projects.List())
+	allProjects.AddAll(goProjects.List())
+	os.Exit(run(allProjects))
 }
 
 func run(projects proj.Projects) int {
