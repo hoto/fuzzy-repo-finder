@@ -13,7 +13,7 @@ const (
 )
 
 var (
-	emptyProjects []project.Project
+	emptyProjects = make([]project.Project, 0)
 )
 
 func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {

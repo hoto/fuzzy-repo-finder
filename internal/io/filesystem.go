@@ -20,7 +20,7 @@ func NewFilesystem(disk IDisk) Filesystem {
 
 func (fs Filesystem) FindGitProjects(root string) []project.Project {
 	gitDirs := fs.disk.FindDirs(root, ".git")
-	var projects []project.Project
+	var projects = make([]project.Project, 0)
 	for _, path := range gitDirs {
 		tokens := strings.Split(path, separator)
 		fullPath := strings.Join(tokens[0:len(tokens)-1], separator)
