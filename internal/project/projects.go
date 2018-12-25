@@ -11,3 +11,7 @@ func NewProjects() Projects {
 func (p *Projects) List() []Project {
 	return p.projects
 }
+
+func (p *Projects) Add(project Project) {
+	p.projects = append(p.projects, project)
+}
