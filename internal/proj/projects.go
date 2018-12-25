@@ -27,10 +27,6 @@ func (p *Projects) AddAll(projects []Project) {
 	}
 }
 
-func (p *Projects) String() string {
-	return fmt.Sprintf("projects=[%s]", p.projects)
-}
-
 func (p *Projects) ListGroups() []string {
 	groupsSet := make(map[string]bool)
 	for _, project := range p.projects {
@@ -42,4 +38,16 @@ func (p *Projects) ListGroups() []string {
 	}
 	sort.Strings(groups)
 	return groups
+}
+
+func (p *Projects) Size() int {
+	return len(p.projects)
+}
+
+func (p Projects) Copy() Projects {
+	return p
+}
+
+func (p *Projects) String() string {
+	return fmt.Sprintf("projects=[%s]", p.projects)
 }
