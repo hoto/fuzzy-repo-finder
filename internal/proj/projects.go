@@ -1,6 +1,9 @@
 package proj
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type Projects struct {
 	projects []Project
@@ -23,6 +26,20 @@ func (p *Projects) AddAll(projects []Project) {
 		p.Add(project)
 	}
 }
+
 func (p *Projects) String() string {
 	return fmt.Sprintf("projects=[%s]", p.projects)
+}
+
+func (p *Projects) ListGroups() []string {
+	groupsSet := make(map[string]bool)
+	for _, project := range p.projects {
+		groupsSet[project.Group] = true
+	}
+	groups := make([]string, 0)
+	for k := range groupsSet {
+		groups = append(groups, string(k))
+	}
+	sort.Strings(groups)
+	return groups
 }
