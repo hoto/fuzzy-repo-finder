@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hoto/fuzzy-repo-finder/internal/io"
-	"github.com/hoto/fuzzy-repo-finder/internal/project"
+	"github.com/hoto/fuzzy-repo-finder/internal/proj"
 	"os"
 )
 
@@ -18,7 +18,7 @@ func main() {
 	os.Exit(run(projects))
 }
 
-func run(projects project.Projects) int {
+func run(projects proj.Projects) int {
 	terminal := io.NewTerminal(projects)
 	terminal.Init()
 	defer terminal.Close()
