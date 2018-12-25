@@ -1,7 +1,7 @@
 package io
 
 import (
-	"github.com/hoto/fuzzy-repo-finder/internal/project"
+	"github.com/hoto/fuzzy-repo-finder/internal/proj"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"testing"
@@ -13,7 +13,7 @@ const (
 )
 
 var (
-	emptyProjects = make([]project.Project, 0)
+	emptyProjects = make([]proj.Project, 0)
 )
 
 func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
@@ -36,17 +36,17 @@ func Test_should_return_matching_projects(t *testing.T) {
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	project1 := project.Project{
+	project1 := proj.Project{
 		Name:     "project1",
 		Group:    "",
 		FullPath: "/home/user/projects/project1",
 	}
-	project2 := project.Project{
+	project2 := proj.Project{
 		Name:     "project2",
 		Group:    "",
 		FullPath: "/home/user/projects/project2",
 	}
-	expectedProjects := []project.Project{project1, project2}
+	expectedProjects := []proj.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects.List())
 }
 
@@ -60,17 +60,17 @@ func Test_should_return_matching_projects_inside_a_group(t *testing.T) {
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	project1 := project.Project{
+	project1 := proj.Project{
 		Name:     "project1",
 		Group:    "dirA",
 		FullPath: "/home/user/projects/dirA/project1",
 	}
-	project2 := project.Project{
+	project2 := proj.Project{
 		Name:     "project2",
 		Group:    "dirB",
 		FullPath: "/home/user/projects/dirB/project2",
 	}
-	expectedProjects := []project.Project{project1, project2}
+	expectedProjects := []proj.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects.List())
 }
 
@@ -84,17 +84,17 @@ func Test_should_return_matching_projects_inside_a_multiple_level_group(t *testi
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	project1 := project.Project{
+	project1 := proj.Project{
 		Name:     "project1",
 		Group:    "dirA1/dirA2/dirA3",
 		FullPath: "/home/user/projects/dirA1/dirA2/dirA3/project1",
 	}
-	project2 := project.Project{
+	project2 := proj.Project{
 		Name:     "project2",
 		Group:    "dirB1/dirB2/dirB3",
 		FullPath: "/home/user/projects/dirB1/dirB2/dirB3/project2",
 	}
-	expectedProjects := []project.Project{project1, project2}
+	expectedProjects := []proj.Project{project1, project2}
 	assert.Equal(t, expectedProjects, projects.List())
 }
 

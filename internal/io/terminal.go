@@ -1,7 +1,7 @@
 package io
 
 import (
-	"github.com/hoto/fuzzy-repo-finder/internal/project"
+	"github.com/hoto/fuzzy-repo-finder/internal/proj"
 	"github.com/nsf/termbox-go"
 )
 
@@ -13,11 +13,11 @@ const (
 type Terminal struct {
 	queryPrompt    string
 	query          Query
-	projects       project.Projects
+	projects       proj.Projects
 	cursorPosition position
 }
 
-func NewTerminal(projects project.Projects) *Terminal {
+func NewTerminal(projects proj.Projects) *Terminal {
 	return &Terminal{
 		queryPrompt:    "Search: ",
 		projects:       projects,
@@ -78,8 +78,8 @@ func (t *Terminal) displayQuery() {
 }
 
 func (t *Terminal) displayProjects() {
-	for projectIndex, _project := range t.projects.List() {
-		for charIndex, char := range []rune(_project.Name) {
+	for projectIndex, project := range t.projects.List() {
+		for charIndex, char := range []rune(project.Name) {
 			termbox.SetCell(
 				charIndex, projectIndex+projectsLineVerticalOffset, char,
 				termbox.ColorDefault, termbox.ColorDefault)
