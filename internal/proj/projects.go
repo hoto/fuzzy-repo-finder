@@ -18,6 +18,11 @@ func (p *Projects) Add(project Project) {
 	p.projects = append(p.projects, project)
 }
 
+func (p *Projects) AddAll(projects []Project) {
+	for _, project := range projects {
+		p.Add(project)
+	}
+}
 func (p *Projects) String() string {
 	return fmt.Sprintf("projects=[%s]", p.projects)
 }
