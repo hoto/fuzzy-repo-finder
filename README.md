@@ -7,6 +7,7 @@
 Command line tool for git projects navigation.
 
 ### TODO:
+* Query by group
 * Read config file from `~/.fuzzy-repo-finder/config.yml`
 * Pass flags which can override `config.yml`
 * Save found repositories in `~/.fuzzy-repo-finder/repos.yml`

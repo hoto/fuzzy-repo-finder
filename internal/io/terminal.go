@@ -20,7 +20,7 @@ type Terminal struct {
 
 func NewTerminal(projects proj.Projects) *Terminal {
 	return &Terminal{
-		queryPrompt:    "Search: ",
+		queryPrompt:    "Name: ",
 		projects:       projects,
 		cursorPosition: position{0, 0},
 	}
@@ -74,7 +74,7 @@ func (t *Terminal) displayQuery() {
 			charHorizontalOffset,
 			queryVerticalOffset,
 			char,
-			termbox.ColorMagenta,
+			termbox.ColorCyan,
 			termbox.ColorDefault)
 	}
 	promptHorizontalOffset := len(t.queryPrompt)
@@ -96,7 +96,7 @@ func (t *Terminal) displayProjects() {
 				charOffset,
 				currentLineNum,
 				char,
-				termbox.ColorYellow,
+				termbox.ColorMagenta,
 				termbox.ColorDefault)
 		}
 		currentLineNum += 1
