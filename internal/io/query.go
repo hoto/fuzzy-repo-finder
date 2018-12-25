@@ -8,8 +8,12 @@ func (q *Query) Append(char rune) {
 	q.line = append(q.line, char)
 }
 
-func (q *Query) Read() []rune {
+func (q *Query) Runes() []rune {
 	return q.line
+}
+
+func (q *Query) String() string {
+	return string(q.line)
 }
 
 func (q *Query) DeleteLastChar() {
