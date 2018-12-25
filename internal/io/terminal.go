@@ -7,7 +7,7 @@ import (
 
 const (
 	queryLineOffset    = 0
-	projectsLineOffset = 0
+	projectsLineOffset = 1
 )
 
 type Terminal struct {
