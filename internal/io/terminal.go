@@ -5,6 +5,11 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
+const (
+	queryLineOffset    = 0
+	projectsLineOffset = 0
+)
+
 type Terminal struct {
 	queryPrompt    string
 	query          Query
@@ -68,15 +73,16 @@ func (t *Terminal) displayCursor() {
 
 func (t *Terminal) displayQuery() {
 	for i, char := range t.query.Read() {
-		termbox.SetCell(i, 0, char, termbox.ColorGreen, termbox.ColorDefault)
+		termbox.SetCell(i, queryLineOffset, char, termbox.ColorGreen, termbox.ColorDefault)
 	}
 }
 
 func (t *Terminal) displayProjects() {
-	offset := 1
 	for projectIndex, _project := range t.projects {
-		for runeIndex, char := range []rune(_project.Name) {
-			termbox.SetCell(runeIndex, projectIndex+offset, char, termbox.ColorDefault, termbox.ColorDefault)
+		for charIndex, char := range []rune(_project.Name) {
+			termbox.SetCell(
+				charIndex, projectIndex+projectsLineOffset, char,
+				termbox.ColorDefault, termbox.ColorDefault)
 		}
 	}
 }
