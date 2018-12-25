@@ -8,5 +8,5 @@ jobs:
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
-      - run: go get -v -t -d ./...
-      - run: go test -v ./...
+      - run: make download
+      - run: make test
