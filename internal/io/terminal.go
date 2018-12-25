@@ -78,7 +78,7 @@ func (t *Terminal) displayQuery() {
 			termbox.ColorDefault)
 	}
 	promptHorizontalOffset := len(t.queryPrompt)
-	for charHorizontalOffset, char := range t.query.Read() {
+	for charHorizontalOffset, char := range t.query.Runes() {
 		termbox.SetCell(
 			promptHorizontalOffset+charHorizontalOffset,
 			queryVerticalOffset,
