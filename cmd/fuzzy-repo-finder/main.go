@@ -16,18 +16,23 @@ func main() {
 	projects := filesystem.FindGitProjects(projectsRoot)
 	goProjects := filesystem.FindGitProjects(goProjectsRoot)
 	allProjects := append(projects, goProjects...)
-	os.Exit(runTerminal(allProjects))
+	os.Exit(run(allProjects))
 }
 
-func runTerminal(projects []project.Project) int {
+func run(projects []project.Project) int {
 	terminal := io.NewTerminal(projects)
 	terminal.Init()
 	defer terminal.Close()
 
 	for {
 		rc := terminal.Cycle()
-		if rc != 0 {
-			return rc
+		switch rc {
+		case io.CONTINUE:
+			continue
+		case io.NORMAL_EXIT:
+			return 0
+		case io.ABNORMAL_EXIT:
+			return 1
 		}
 	}
 }

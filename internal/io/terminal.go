@@ -36,7 +36,7 @@ func (t Terminal) Close() {
 	termbox.Close()
 }
 
-func (t *Terminal) Cycle() int {
+func (t *Terminal) Cycle() ExitCode {
 	t.displayCursor()
 	t.displayQuery()
 	t.displayProjects()
@@ -53,11 +53,13 @@ func (t *Terminal) Cycle() int {
 		case termbox.KeyCtrlW:
 			t.query.DeleteLastWord()
 			t.moveCursor()
+		case termbox.KeyEnter:
+			return NORMAL_EXIT
 		case termbox.KeyCtrlC:
-			return 1
+			return ABNORMAL_EXIT
 		}
 	}
-	return 0
+	return CONTINUE
 }
 
 func (t *Terminal) displayCursor() {
