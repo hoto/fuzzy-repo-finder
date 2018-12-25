@@ -13,11 +13,11 @@ const (
 type Terminal struct {
 	queryPrompt    string
 	query          Query
-	projects       []project.Project
+	projects       project.Projects
 	cursorPosition position
 }
 
-func NewTerminal(projects []project.Project) *Terminal {
+func NewTerminal(projects project.Projects) *Terminal {
 	return &Terminal{
 		queryPrompt:    "Search: ",
 		projects:       projects,
@@ -78,7 +78,7 @@ func (t *Terminal) displayQuery() {
 }
 
 func (t *Terminal) displayProjects() {
-	for projectIndex, _project := range t.projects {
+	for projectIndex, _project := range t.projects.List() {
 		for charIndex, char := range []rune(_project.Name) {
 			termbox.SetCell(
 				charIndex, projectIndex+projectsLineVerticalOffset, char,

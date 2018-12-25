@@ -14,12 +14,11 @@ var (
 func main() {
 	filesystem := io.NewFilesystem(io.Disk{})
 	projects := filesystem.FindGitProjects(projectsRoot)
-	goProjects := filesystem.FindGitProjects(goProjectsRoot)
-	allProjects := append(projects, goProjects...)
-	os.Exit(run(allProjects))
+	//goProjects := filesystem.FindGitProjects(goProjectsRoot)
+	os.Exit(run(projects))
 }
 
-func run(projects []project.Project) int {
+func run(projects project.Projects) int {
 	terminal := io.NewTerminal(projects)
 	terminal.Init()
 	defer terminal.Close()

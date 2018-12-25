@@ -23,7 +23,7 @@ func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
-	assert.Equal(t, emptyProjects, projects)
+	assert.Equal(t, emptyProjects, projects.List())
 }
 
 func Test_should_return_matching_projects(t *testing.T) {
@@ -47,7 +47,7 @@ func Test_should_return_matching_projects(t *testing.T) {
 		FullPath: "/home/user/projects/project2",
 	}
 	expectedProjects := []project.Project{project1, project2}
-	assert.Equal(t, expectedProjects, projects)
+	assert.Equal(t, expectedProjects, projects.List())
 }
 
 func Test_should_return_matching_projects_inside_a_group(t *testing.T) {
@@ -71,7 +71,7 @@ func Test_should_return_matching_projects_inside_a_group(t *testing.T) {
 		FullPath: "/home/user/projects/dirB/project2",
 	}
 	expectedProjects := []project.Project{project1, project2}
-	assert.Equal(t, expectedProjects, projects)
+	assert.Equal(t, expectedProjects, projects.List())
 }
 
 func Test_should_return_matching_projects_inside_a_multiple_level_group(t *testing.T) {
@@ -95,7 +95,7 @@ func Test_should_return_matching_projects_inside_a_multiple_level_group(t *testi
 		FullPath: "/home/user/projects/dirB1/dirB2/dirB3/project2",
 	}
 	expectedProjects := []project.Project{project1, project2}
-	assert.Equal(t, expectedProjects, projects)
+	assert.Equal(t, expectedProjects, projects.List())
 }
 
 type MockDisk struct {
