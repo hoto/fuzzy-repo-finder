@@ -13,3 +13,5 @@ test:
 run: clean build
 	./bin/fuzzy-repo-finder
 
+download:
+	go get -v -t -d ./...
