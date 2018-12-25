@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	queryLineOffset    = 0
-	projectsLineOffset = 1
+	queryLineVerticalOffset    = 0
+	projectsLineVerticalOffset = 1
 )
 
 type Terminal struct {
@@ -42,7 +42,7 @@ func (t Terminal) Close() {
 }
 
 func (t *Terminal) Cycle() ExitCode {
-	t.displayCursor()
+	t.positionCursor()
 	t.displayQuery()
 	t.displayProjects()
 	t.refresh()
@@ -51,13 +51,13 @@ func (t *Terminal) Cycle() ExitCode {
 		switch event.Key {
 		case 0, termbox.KeySpace:
 			t.query.Append(event.Ch)
-			t.moveCursor()
+			t.positionCursor()
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
 			t.query.DeleteLastChar()
-			t.moveCursor()
+			t.positionCursor()
 		case termbox.KeyCtrlW:
 			t.query.DeleteLastWord()
-			t.moveCursor()
+			t.positionCursor()
 		case termbox.KeyEnter:
 			return NORMAL_EXIT
 		case termbox.KeyCtrlC:
@@ -67,13 +67,13 @@ func (t *Terminal) Cycle() ExitCode {
 	return CONTINUE
 }
 
-func (t *Terminal) displayCursor() {
-	termbox.SetCursor(t.cursorPosition.x, t.cursorPosition.y)
-}
-
 func (t *Terminal) displayQuery() {
+	for i, char := range t.queryPrompt {
+		termbox.SetCell(i, queryLineVerticalOffset, char, termbox.ColorMagenta, termbox.ColorDefault)
+	}
+	horizontalOffset := len(t.queryPrompt)
 	for i, char := range t.query.Read() {
-		termbox.SetCell(i, queryLineOffset, char, termbox.ColorGreen, termbox.ColorDefault)
+		termbox.SetCell(i+horizontalOffset, queryLineVerticalOffset, char, termbox.ColorGreen, termbox.ColorDefault)
 	}
 }
 
@@ -81,14 +81,14 @@ func (t *Terminal) displayProjects() {
 	for projectIndex, _project := range t.projects {
 		for charIndex, char := range []rune(_project.Name) {
 			termbox.SetCell(
-				charIndex, projectIndex+projectsLineOffset, char,
+				charIndex, projectIndex+projectsLineVerticalOffset, char,
 				termbox.ColorDefault, termbox.ColorDefault)
 		}
 	}
 }
 
-func (t *Terminal) moveCursor() {
-	t.cursorPosition.x = t.query.Size()
+func (t *Terminal) positionCursor() {
+	t.cursorPosition.x = len(t.queryPrompt) + t.query.Size()
 	termbox.SetCursor(t.cursorPosition.x, t.cursorPosition.y)
 }
 
