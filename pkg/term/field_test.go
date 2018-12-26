@@ -11,7 +11,7 @@ func Test_should_have_zero_query_size(t *testing.T) {
 	assert.Equal(t, 0, query.QuerySize())
 }
 
-func Test_should_be_empty(t *testing.T) {
+func Test_should_have_empty_query(t *testing.T) {
 	query := NewField("", "")
 
 	assert.Equal(t, true, query.QueryIsEmpty())

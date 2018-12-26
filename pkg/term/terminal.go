@@ -51,27 +51,26 @@ func (t *Terminal) Cycle() ExitCode {
 		case 0, termbox.KeySpace:
 			t.projectNameField.AppendToQuery(event.Ch)
 			t.display.adjustQueryCursorPosition(t.projectNameField)
-			t.filterProjects()
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
 			t.projectNameField.DeleteLastQueryChar()
 			t.display.adjustQueryCursorPosition(t.projectNameField)
-			t.filterProjects()
 		case termbox.KeyCtrlW:
 			t.projectNameField.EraseQuery()
 			t.display.adjustQueryCursorPosition(t.projectNameField)
-			t.filterProjects()
 		case termbox.KeyEnter:
 			return NORMAL_EXIT
 		case termbox.KeyCtrlC:
 			return ABNORMAL_EXIT
 		}
 	}
+	t.filterProjects()
 	return CONTINUE
 }
 
 func (t *Terminal) filterProjects() {
 	if t.projectNameField.QueryIsEmpty() {
 		t.filteredProjects = t.allProjects
+		return
 	}
 	matchedProjects := proj.NewProjects()
 	matches := fuzzy.FindFrom(t.projectNameField.QueryString(), t.allProjects)
