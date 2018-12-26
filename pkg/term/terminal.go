@@ -9,7 +9,7 @@ import (
 type Terminal struct {
 	display          *display
 	queryPrompt      string
-	query            Query
+	query            query
 	allProjects      proj.Projects
 	filteredProjects proj.Projects
 }

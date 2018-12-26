@@ -19,7 +19,7 @@ func NewDisplay() *display {
 	return &display{queryCursorPosition: position{0, 0}}
 }
 
-func (display) displayQuery(queryPrompt string, query Query) {
+func (display) displayQuery(queryPrompt string, query query) {
 	for charHorizontalOffset, char := range queryPrompt {
 		termbox.SetCell(
 			charHorizontalOffset,
@@ -67,7 +67,7 @@ func (display) displayProjects(projects *proj.Projects) {
 	}
 }
 
-func (d *display) adjustQueryCursorPosition(queryPrompt string, query Query) {
+func (d *display) adjustQueryCursorPosition(queryPrompt string, query query) {
 	d.queryCursorPosition.x = len(queryPrompt) + query.Size()
 	termbox.SetCursor(d.queryCursorPosition.x, d.queryCursorPosition.y)
 }
