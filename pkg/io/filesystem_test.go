@@ -19,7 +19,7 @@ var (
 func Test_should_return_empty_list_when_no_directory_matches(t *testing.T) {
 	disk := new(MockDisk)
 	disk.On("FindDirs", projectsRoot, git).Return([]string{})
-	filesystem := Filesystem{disk}
+	filesystem := NewFilesystem(disk)
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
@@ -32,7 +32,7 @@ func Test_should_return_matching_projects(t *testing.T) {
 		"/home/user/projects/project1/.git",
 		"/home/user/projects/project2/.git",
 	})
-	filesystem := Filesystem{disk}
+	filesystem := NewFilesystem(disk)
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
@@ -56,7 +56,7 @@ func Test_should_return_matching_projects_inside_a_group(t *testing.T) {
 		"/home/user/projects/dirA/project1/.git",
 		"/home/user/projects/dirB/project2/.git",
 	})
-	filesystem := Filesystem{disk}
+	filesystem := NewFilesystem(disk)
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 
@@ -80,7 +80,7 @@ func Test_should_return_matching_projects_inside_a_multiple_level_group(t *testi
 		"/home/user/projects/dirA1/dirA2/dirA3/project1/.git",
 		"/home/user/projects/dirB1/dirB2/dirB3/project2/.git",
 	})
-	filesystem := Filesystem{disk}
+	filesystem := NewFilesystem(disk)
 
 	projects := filesystem.FindGitProjects(projectsRoot)
 

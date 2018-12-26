@@ -16,11 +16,13 @@ type display struct {
 }
 
 func NewDisplay() *display {
-	return &display{queryCursorPosition: position{0, 0}}
+	return &display{
+		queryCursorPosition: position{0, 0},
+	}
 }
 
-func (display) displayQuery(queryPrompt string, query query) {
-	for charHorizontalOffset, char := range queryPrompt {
+func (display) displayQuery(field *field) {
+	for charHorizontalOffset, char := range field.TitleRunes() {
 		termbox.SetCell(
 			charHorizontalOffset,
 			queryVerticalOffset,
@@ -28,8 +30,8 @@ func (display) displayQuery(queryPrompt string, query query) {
 			termbox.ColorCyan,
 			termbox.ColorDefault)
 	}
-	promptHorizontalOffset := len(queryPrompt)
-	for charHorizontalOffset, char := range query.Runes() {
+	promptHorizontalOffset := field.TitleSize()
+	for charHorizontalOffset, char := range field.QueryRunes() {
 		termbox.SetCell(
 			promptHorizontalOffset+charHorizontalOffset,
 			queryVerticalOffset,
@@ -67,8 +69,8 @@ func (display) displayProjects(projects *proj.Projects) {
 	}
 }
 
-func (d *display) adjustQueryCursorPosition(queryPrompt string, query query) {
-	d.queryCursorPosition.x = len(queryPrompt) + query.Size()
+func (d *display) adjustQueryCursorPosition(field *field) {
+	d.queryCursorPosition.x = field.FieldSize()
 	termbox.SetCursor(d.queryCursorPosition.x, d.queryCursorPosition.y)
 }
 

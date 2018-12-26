@@ -13,6 +13,7 @@ func Test_should_be_empty(t *testing.T) {
 	projects := NewProjects()
 
 	assert.Equal(t, 0, projects.Size())
+	assert.Equal(t, 0, projects.Len())
 }
 
 func Test_should_return_empty_projects(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 type Terminal struct {
 	display          *display
 	queryPrompt      string
-	query            query
+	projectNameField *field
 	allProjects      proj.Projects
 	filteredProjects proj.Projects
 }
@@ -18,6 +18,7 @@ func NewTerminal(projects proj.Projects) *Terminal {
 	return &Terminal{
 		display:          NewDisplay(),
 		queryPrompt:      "Name: ",
+		projectNameField: NewField("Name: ", ""),
 		allProjects:      projects,
 		filteredProjects: projects,
 	}
@@ -40,24 +41,24 @@ func (Terminal) Close() {
 }
 
 func (t *Terminal) Cycle() ExitCode {
-	t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
-	t.display.displayQuery(t.queryPrompt, t.query)
+	t.display.adjustQueryCursorPosition(t.projectNameField)
+	t.display.displayQuery(t.projectNameField)
 	t.display.displayProjects(&t.filteredProjects)
 	t.display.refresh()
 	event := termbox.PollEvent()
 	if event.Type == termbox.EventKey {
 		switch event.Key {
 		case 0, termbox.KeySpace:
-			t.query.Append(event.Ch)
-			t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
+			t.projectNameField.AppendToQuery(event.Ch)
+			t.display.adjustQueryCursorPosition(t.projectNameField)
 			t.filterProjects()
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
-			t.query.DeleteLastChar()
-			t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
+			t.projectNameField.DeleteLastQueryChar()
+			t.display.adjustQueryCursorPosition(t.projectNameField)
 			t.filterProjects()
 		case termbox.KeyCtrlW:
-			t.query.DeleteLastWord()
-			t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
+			t.projectNameField.EraseQuery()
+			t.display.adjustQueryCursorPosition(t.projectNameField)
 			t.filterProjects()
 		case termbox.KeyEnter:
 			return NORMAL_EXIT
@@ -69,11 +70,11 @@ func (t *Terminal) Cycle() ExitCode {
 }
 
 func (t *Terminal) filterProjects() {
-	if t.query.Size() == 0 {
+	if t.projectNameField.QueryIsEmpty() {
 		t.filteredProjects = t.allProjects
 	}
 	matchedProjects := proj.NewProjects()
-	matches := fuzzy.FindFrom(t.query.String(), t.allProjects)
+	matches := fuzzy.FindFrom(t.projectNameField.QueryString(), t.allProjects)
 	for _, match := range matches {
 		matchedProjects.Add(t.allProjects.List()[match.Index])
 	}
