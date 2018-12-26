@@ -1,7 +1,7 @@
 package term
 
 import (
-	"github.com/hoto/fuzzy-repo-finder/internal/proj"
+	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"github.com/nsf/termbox-go"
 	"github.com/sahilm/fuzzy"
 )

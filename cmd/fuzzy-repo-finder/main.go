@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/hoto/fuzzy-repo-finder/internal/io"
-	"github.com/hoto/fuzzy-repo-finder/internal/proj"
-	"github.com/hoto/fuzzy-repo-finder/internal/term"
+	"github.com/hoto/fuzzy-repo-finder/pkg/io"
+	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
+	"github.com/hoto/fuzzy-repo-finder/pkg/term"
 	"os"
 )
 

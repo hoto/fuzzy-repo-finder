@@ -1,7 +1,7 @@
 package io
 
 import (
-	"github.com/hoto/fuzzy-repo-finder/internal/proj"
+	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"testing"
