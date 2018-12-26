@@ -11,7 +11,13 @@ const (
 	projectNameHorizontalOffset = 4
 )
 
-type display struct{}
+type display struct {
+	queryCursorPosition position
+}
+
+func NewDisplay() *display {
+	return &display{queryCursorPosition: position{0, 0}}
+}
 
 func (display) displayQuery(queryPrompt string, query Query) {
 	for charHorizontalOffset, char := range queryPrompt {
@@ -61,9 +67,9 @@ func (display) displayProjects(projects *proj.Projects) {
 	}
 }
 
-func (t *Terminal) positionCursor() {
-	t.cursorPosition.x = len(t.queryPrompt) + t.query.Size()
-	termbox.SetCursor(t.cursorPosition.x, t.cursorPosition.y)
+func (d *display) adjustQueryCursorPosition(queryPrompt string, query Query) {
+	d.queryCursorPosition.x = len(queryPrompt) + query.Size()
+	termbox.SetCursor(d.queryCursorPosition.x, d.queryCursorPosition.y)
 }
 
 func (d *display) refresh() {

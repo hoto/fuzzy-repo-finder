@@ -7,20 +7,19 @@ import (
 )
 
 type Terminal struct {
-	display          display
+	display          *display
 	queryPrompt      string
 	query            Query
 	allProjects      proj.Projects
 	filteredProjects proj.Projects
-	cursorPosition   position
 }
 
 func NewTerminal(projects proj.Projects) *Terminal {
 	return &Terminal{
+		display:          NewDisplay(),
 		queryPrompt:      "Name: ",
 		allProjects:      projects,
 		filteredProjects: projects,
-		cursorPosition:   position{0, 0},
 	}
 }
 
@@ -41,7 +40,7 @@ func (Terminal) Close() {
 }
 
 func (t *Terminal) Cycle() ExitCode {
-	t.positionCursor()
+	t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
 	t.display.displayQuery(t.queryPrompt, t.query)
 	t.display.displayProjects(&t.filteredProjects)
 	t.display.refresh()
@@ -50,15 +49,15 @@ func (t *Terminal) Cycle() ExitCode {
 		switch event.Key {
 		case 0, termbox.KeySpace:
 			t.query.Append(event.Ch)
-			t.positionCursor()
+			t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
 			t.filterProjects()
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
 			t.query.DeleteLastChar()
-			t.positionCursor()
+			t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
 			t.filterProjects()
 		case termbox.KeyCtrlW:
 			t.query.DeleteLastWord()
-			t.positionCursor()
+			t.display.adjustQueryCursorPosition(t.queryPrompt, t.query)
 			t.filterProjects()
 		case termbox.KeyEnter:
 			return NORMAL_EXIT
