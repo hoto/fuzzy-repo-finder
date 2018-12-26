@@ -1,7 +1,6 @@
 package proj
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -44,10 +43,14 @@ func (p *Projects) Size() int {
 	return len(p.projects)
 }
 
-func (p Projects) Copy() Projects {
-	return p
+func (p Projects) Len() int {
+	return p.Size()
 }
 
-func (p *Projects) String() string {
-	return fmt.Sprintf("projects=[%s]", p.projects)
+func (p Projects) String(i int) string {
+	return p.projects[i].Name
+}
+
+func (p Projects) Copy() Projects {
+	return p
 }

@@ -34,6 +34,14 @@
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:56ce664abce576b1e6e3673303a5eef8ef57d3f261c2d658f6f0313ecb17ac1f"
+  name = "github.com/sahilm/fuzzy"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "0ca8ec0fccc8cd7d336a6d6dec490a327a8d5cb0"
+  version = "v0.1.0"
+
+[[projects]]
   digest = "1:ac83cf90d08b63ad5f7e020ef480d319ae890c208f8524622a2f3136e2686b02"
   name = "github.com/stretchr/objx"
   packages = ["."]
@@ -57,6 +65,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/nsf/termbox-go",
+    "github.com/sahilm/fuzzy",
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/mock",
   ]

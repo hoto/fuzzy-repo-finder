@@ -3,6 +3,7 @@ package io
 import (
 	"github.com/hoto/fuzzy-repo-finder/internal/proj"
 	"github.com/nsf/termbox-go"
+	"github.com/sahilm/fuzzy"
 )
 
 const (
@@ -12,17 +13,19 @@ const (
 )
 
 type Terminal struct {
-	queryPrompt    string
-	query          Query
-	projects       proj.Projects
-	cursorPosition position
+	queryPrompt      string
+	query            Query
+	allProjects      proj.Projects
+	filteredProjects proj.Projects
+	cursorPosition   position
 }
 
 func NewTerminal(projects proj.Projects) *Terminal {
 	return &Terminal{
-		queryPrompt:    "Name: ",
-		projects:       projects,
-		cursorPosition: position{0, 0},
+		queryPrompt:      "Name: ",
+		allProjects:      projects,
+		filteredProjects: projects,
+		cursorPosition:   position{0, 0},
 	}
 }
 
@@ -53,12 +56,15 @@ func (t *Terminal) Cycle() ExitCode {
 		case 0, termbox.KeySpace:
 			t.query.Append(event.Ch)
 			t.positionCursor()
+			t.filterProjects()
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
 			t.query.DeleteLastChar()
 			t.positionCursor()
+			t.filterProjects()
 		case termbox.KeyCtrlW:
 			t.query.DeleteLastWord()
 			t.positionCursor()
+			t.filterProjects()
 		case termbox.KeyEnter:
 			return NORMAL_EXIT
 		case termbox.KeyCtrlC:
@@ -90,7 +96,7 @@ func (t *Terminal) displayQuery() {
 
 func (t *Terminal) displayProjects() {
 	currentLineNum := projectsVerticalOffset
-	for _, group := range t.projects.ListGroups() {
+	for _, group := range t.filteredProjects.ListGroups() {
 		for charOffset, char := range []rune(group) {
 			termbox.SetCell(
 				charOffset,
@@ -100,7 +106,7 @@ func (t *Terminal) displayProjects() {
 				termbox.ColorDefault)
 		}
 		currentLineNum += 1
-		for _, project := range t.projects.List() {
+		for _, project := range t.filteredProjects.List() {
 			if project.Group == group {
 				for charOffset, char := range []rune(project.Name) {
 					termbox.SetCell(
@@ -119,6 +125,20 @@ func (t *Terminal) displayProjects() {
 func (t *Terminal) positionCursor() {
 	t.cursorPosition.x = len(t.queryPrompt) + t.query.Size()
 	termbox.SetCursor(t.cursorPosition.x, t.cursorPosition.y)
+}
+
+func (t *Terminal) filterProjects() {
+	matchedProjects := proj.NewProjects()
+	matches := fuzzy.FindFrom(t.query.String(), t.allProjects)
+	for _, match := range matches {
+		matchedProjects.Add(t.allProjects.List()[match.Index])
+	}
+	switch matched := matches.Len(); {
+	case matched == 0:
+		t.filteredProjects = t.allProjects
+	case matched > 0:
+		t.filteredProjects = matchedProjects
+	}
 }
 
 func (t *Terminal) refresh() {
