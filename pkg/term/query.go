@@ -28,6 +28,7 @@ func (q *Query) DeleteLastWord() {
 	}
 }
 
+//TODO: need a test for size == 0 there is a bug atm, also add IsEmpty() function
 func (q *Query) Size() int {
 	return len(q.line)
 }
