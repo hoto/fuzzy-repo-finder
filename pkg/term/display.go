@@ -22,7 +22,7 @@ func NewDisplay() *display {
 }
 
 func (display) displayQuery(field *field) {
-	for charHorizontalOffset, char := range field.TitleRunes() {
+	for charHorizontalOffset, char := range field.titleRunes() {
 		termbox.SetCell(
 			charHorizontalOffset,
 			queryVerticalOffset,
@@ -30,8 +30,8 @@ func (display) displayQuery(field *field) {
 			termbox.ColorCyan,
 			termbox.ColorDefault)
 	}
-	promptHorizontalOffset := field.TitleSize()
-	for charHorizontalOffset, char := range field.QueryRunes() {
+	promptHorizontalOffset := field.titleSize()
+	for charHorizontalOffset, char := range field.queryRunes() {
 		termbox.SetCell(
 			promptHorizontalOffset+charHorizontalOffset,
 			queryVerticalOffset,
@@ -70,7 +70,7 @@ func (display) displayProjects(projects *proj.Projects) {
 }
 
 func (d *display) adjustQueryCursorPosition(field *field) {
-	d.queryCursorPosition.x = field.FieldSize()
+	d.queryCursorPosition.x = field.fieldSize()
 	termbox.SetCursor(d.queryCursorPosition.x, d.queryCursorPosition.y)
 }
 
