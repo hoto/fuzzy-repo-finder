@@ -15,3 +15,6 @@ run: clean build
 
 download:
 	go get -v -t -d ./...
+
+install:
+	go install -v ./...
