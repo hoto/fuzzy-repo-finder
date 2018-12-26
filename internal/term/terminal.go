@@ -1,4 +1,4 @@
-package io
+package term
 
 import (
 	"github.com/hoto/fuzzy-repo-finder/internal/proj"

@@ -1,4 +1,4 @@
-package io
+package term
 
 type ExitCode int
 

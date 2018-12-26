@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/hoto/fuzzy-repo-finder/internal/io"
 	"github.com/hoto/fuzzy-repo-finder/internal/proj"
+	"github.com/hoto/fuzzy-repo-finder/internal/term"
 	"os"
 )
 
@@ -22,18 +23,18 @@ func main() {
 }
 
 func run(projects proj.Projects) int {
-	terminal := io.NewTerminal(projects)
+	terminal := term.NewTerminal(projects)
 	terminal.Init()
 	defer terminal.Close()
 
 	for {
 		rc := terminal.Cycle()
 		switch rc {
-		case io.CONTINUE:
+		case term.CONTINUE:
 			continue
-		case io.NORMAL_EXIT:
+		case term.NORMAL_EXIT:
 			return 0
-		case io.ABNORMAL_EXIT:
+		case term.ABNORMAL_EXIT:
 			return 1
 		}
 	}
