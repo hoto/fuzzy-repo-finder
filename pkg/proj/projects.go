@@ -2,7 +2,6 @@ package proj
 
 import (
 	"errors"
-	"sort"
 )
 
 type Projects struct {
@@ -29,15 +28,23 @@ func (p *Projects) AddAll(projects []Project) {
 }
 
 func (p *Projects) ListGroups() []string {
-	groupsSet := make(map[string]bool)
+	groups := []string{}
 	for _, project := range p.projects {
-		groupsSet[project.Group] = true
+		groupPresent := false
+		if len(groups) == 0 {
+			groups = append(groups, project.Group)
+			continue
+		}
+		for _, group := range groups {
+			if group == project.Group {
+				groupPresent = true
+				break
+			}
+		}
+		if !groupPresent {
+			groups = append(groups, project.Group)
+		}
 	}
-	groups := make([]string, 0)
-	for k := range groupsSet {
-		groups = append(groups, string(k))
-	}
-	sort.Strings(groups)
 	return groups
 }
 

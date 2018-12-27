@@ -59,16 +59,18 @@ func Test_should_return_empty_groups(t *testing.T) {
 	assert.Equal(t, []string{}, groups)
 }
 
-func Test_should_return_groups_of_projects(t *testing.T) {
+func Test_should_list_groups_in_order(t *testing.T) {
 	projects := NewProjects()
 	project1 := Project{Name: "PROJECT_1", Group: "GROUP_1"}
 	project2 := Project{Name: "PROJECT_2", Group: "GROUP_1"}
 	project3 := Project{Name: "PROJECT_3", Group: "GROUP_2"}
-	projects.AddAll([]Project{project1, project2, project3})
+	project4 := Project{Name: "PROJECT_4", Group: "GROUP_3"}
+	project5 := Project{Name: "PROJECT_5", Group: "GROUP_1"}
+	projects.AddAll([]Project{project1, project2, project3, project4, project5})
 
 	groups := projects.ListGroups()
 
-	assert.EqualValues(t, []string{"GROUP_1", "GROUP_2"}, groups)
+	assert.EqualValues(t, []string{"GROUP_1", "GROUP_2", "GROUP_3"}, groups)
 }
 
 func Test_should_make_an_empty_copy(t *testing.T) {
