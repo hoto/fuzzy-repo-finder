@@ -28,6 +28,7 @@ func Test_should_retain_a_project(t *testing.T) {
 	projects.Add(project)
 
 	assert.Equal(t, projects.List(), []Project{project})
+	assert.Equal(t, projects.Get(0), project)
 }
 
 func Test_should_have_one_element(t *testing.T) {
@@ -98,4 +99,26 @@ func Test_should_make_a_deep_copy(t *testing.T) {
 	projects.Add(project2)
 
 	assert.NotEqual(t, projectsCopy, projects)
+}
+
+func Test_should_have_no_selected_projects(t *testing.T) {
+	projects := NewProjects()
+
+	selectedProject, err := projects.GetSelected()
+
+	assert.EqualError(t, err, "no project is selected")
+	assert.Nil(t, selectedProject)
+}
+
+func Test_should_mark_selected_projects(t *testing.T) {
+	projects := NewProjects()
+	project1 := Project{Name: "PROJECT_1", Group: "GROUP_1", FullPath: "FULL_PATH_1"}
+	project2 := Project{Name: "PROJECT_2", Group: "GROUP_2", FullPath: "FULL_PATH_2"}
+	projects.AddAll([]Project{project1, project2})
+	projects.MarkSelected(project2)
+
+	selectedProject, err := projects.GetSelected()
+
+	assert.Equal(t, &project2, selectedProject)
+	assert.Nil(t, err)
 }

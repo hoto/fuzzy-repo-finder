@@ -1,11 +1,13 @@
 package proj
 
 import (
+	"errors"
 	"sort"
 )
 
 type Projects struct {
-	projects []Project
+	projects        []Project
+	selectedProject *Project
 }
 
 func NewProjects() Projects {
@@ -53,4 +55,24 @@ func (p Projects) String(i int) string {
 
 func (p Projects) Copy() Projects {
 	return p
+}
+
+func (p *Projects) Get(i int) Project {
+	return p.projects[i]
+}
+
+func (p *Projects) GetSelected() (*Project, error) {
+	if p.selectedProject == nil {
+		return nil, errors.New("no project is selected")
+	}
+	return p.selectedProject, nil
+}
+
+func (p *Projects) MarkSelected(selectedProject Project) {
+	for i, project := range p.projects {
+		if project.FullPath == selectedProject.FullPath {
+			p.selectedProject = &p.projects[i]
+			break
+		}
+	}
 }
