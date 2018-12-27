@@ -8,7 +8,6 @@ import (
 
 type Terminal struct {
 	display          *display
-	queryPrompt      string
 	projectNameField *field
 	allProjects      proj.Projects
 	filteredProjects proj.Projects
@@ -17,7 +16,6 @@ type Terminal struct {
 func NewTerminal(projects proj.Projects) *Terminal {
 	return &Terminal{
 		display:          NewDisplay(),
-		queryPrompt:      "Name: ",
 		projectNameField: NewField("Name: ", ""),
 		allProjects:      projects,
 		filteredProjects: projects,
