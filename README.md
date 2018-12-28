@@ -6,6 +6,33 @@
 
 Command line tool for git projects navigation.
 
+### Install
+
+Download binary from [![releases](<NEED_LINK>)]:
+
+    curl <NEED_LINK>
+
+Add to `~/.bashrc`, `~/.zshrc` or `~/.profile`:
+
+    function go_to_project() {
+      local pattern=$1
+      fuzzy-repo-finder ${pattern}
+      local selectedProjectPath=$(cat ~/.fuzzy-repo-finder/selected_project.txt)
+      cd ${selectedProjectPath}
+    }
+    alias g='go_to_project'
+
+
+### Usage
+
+In terminal:
+
+    $ g myprojectname
+
+### Demo
+
+[[https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png|alt=screenshot]]
+
 ### Development
 
 Clean:
