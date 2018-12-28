@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square)](https://github.com/hoto/fuzzy-repo-finder/releases/latest)
 # Fuzzy Repo Finder
 
-Command line tool for git projects navigation.
+Command line tool for finding your git project.
 
 ### Install
 
