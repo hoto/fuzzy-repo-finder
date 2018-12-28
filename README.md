@@ -31,7 +31,7 @@ In terminal:
 
 ### Demo
 
-![demo][https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png]
+![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png)
 
 ### Development
 
