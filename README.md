@@ -8,7 +8,7 @@ Command line tool for git projects navigation.
 
 ### Install
 
-Download binary from [![releases](<NEED_LINK>)]:
+Download binary from [releases](<NEED_LINK>):
 
     curl <NEED_LINK>
 
@@ -31,7 +31,7 @@ In terminal:
 
 ### Demo
 
-[[https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png|alt=screenshot]]
+![demo][https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png]
 
 ### Development
 
