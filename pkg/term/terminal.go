@@ -1,6 +1,7 @@
 package term
 
 import (
+	"github.com/hoto/fuzzy-repo-finder/pkg/config"
 	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"github.com/nsf/termbox-go"
 	"github.com/sahilm/fuzzy"
@@ -56,6 +57,8 @@ func (t *Terminal) Cycle() ExitCode {
 			t.projectNameField.eraseQuery()
 			t.display.adjustQueryCursorPosition(t.projectNameField)
 		case termbox.KeyEnter:
+			selectedProject := t.filteredProjects.Get(0)
+			config.PersistSelectedProject(selectedProject)
 			return NORMAL_EXIT
 		case termbox.KeyCtrlC:
 			return ABNORMAL_EXIT
