@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"os"
+	"strings"
 )
 
 var (
@@ -31,4 +32,10 @@ func createConfigDir() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func ParseArguments() string {
+	args := os.Args[1:]
+	arg := strings.Join(args, " ")
+	return arg
 }

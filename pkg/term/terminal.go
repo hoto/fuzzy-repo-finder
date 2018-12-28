@@ -14,10 +14,10 @@ type Terminal struct {
 	filteredProjects proj.Projects
 }
 
-func NewTerminal(projects proj.Projects) *Terminal {
+func NewTerminal(projects proj.Projects, query string) *Terminal {
 	return &Terminal{
 		display:          NewDisplay(),
-		projectNameField: NewField("Name: ", ""),
+		projectNameField: NewField("Name: ", query),
 		allProjects:      projects,
 		filteredProjects: projects,
 	}
@@ -40,6 +40,7 @@ func (Terminal) Close() {
 }
 
 func (t *Terminal) Cycle() ExitCode {
+	t.filterProjects()
 	t.display.adjustQueryCursorPosition(t.projectNameField)
 	t.display.displayQuery(t.projectNameField)
 	t.display.displayProjects(&t.filteredProjects)

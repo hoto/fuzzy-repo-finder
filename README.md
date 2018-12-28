@@ -33,6 +33,7 @@ Install:
 * Publish releases on github on every git tag
 * Add installation instructions using github releases
 * Setup brew,fedora,debian,ubuntu,arch,packman repo
+* Stop walking directories tree when a match is find (optimization)
 * Query by group
 * Read config file from `~/.fuzzy-repo-finder/config.yml`
 * Pass flags which can override `config.yml`
