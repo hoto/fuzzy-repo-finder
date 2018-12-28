@@ -14,12 +14,13 @@ var (
 func PersistSelectedProject(project proj.Project) {
 	createConfigDir()
 	file, err := os.Create(selectedProjectFile)
-	if err != nil {
-		panic(err)
-	}
+	check(err)
 	defer file.Close()
-
 	_, err = file.WriteString(project.FullPath)
+	check(err)
+}
+
+func check(err error) {
 	if err != nil {
 		panic(err)
 	}
