@@ -11,10 +11,10 @@ test:
 	go test -v ./...
 
 run: clean build
-	./bin/fuzzy-repo-finder
+	./bin/fuzzy-repo-finder $(arg)
 
 download:
 	go get -v -t -d ./...
 
-install:
+install: clean build
 	go install -v ./...
