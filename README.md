@@ -6,11 +6,11 @@
 
 Command line tool for finding your git project.
 
-### Install
+### Installation
 
 Download binary from [releases](<NEED_LINK>):
 
-    curl <NEED_LINK>
+    curl <NEED_LINK> -o /bin
 
 Add to `~/.bashrc`, `~/.zshrc` or `~/.profile`:
 
@@ -23,9 +23,7 @@ Add to `~/.bashrc`, `~/.zshrc` or `~/.profile`:
     alias g='go_to_project'
 
 
-### Usage
-
-In terminal:
+Use in terminal:
 
     $ g myprojectname
 
