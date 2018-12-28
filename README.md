@@ -33,6 +33,14 @@ Use in terminal:
 
 ### Development
 
+Get:
+
+    go get github.com/hoto/fuzzy-repo-finder/cmd/fuzzy-repo-finder/
+
+Download dependencies:
+
+    make download
+
 Clean:
 
     make clean
