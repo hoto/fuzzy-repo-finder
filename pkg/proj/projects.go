@@ -1,9 +1,5 @@
 package proj
 
-import (
-	"errors"
-)
-
 type Projects struct {
 	projects        []Project
 	selectedProject *Project
@@ -65,21 +61,8 @@ func (p Projects) Copy() Projects {
 }
 
 func (p *Projects) Get(i int) Project {
+	if p.Size() == 0 {
+		return Project{}
+	}
 	return p.projects[i]
-}
-
-func (p *Projects) GetSelected() (*Project, error) {
-	if p.selectedProject == nil {
-		return nil, errors.New("no project is selected")
-	}
-	return p.selectedProject, nil
-}
-
-func (p *Projects) MarkSelected(selectedProject Project) {
-	for i, project := range p.projects {
-		if project.FullPath == selectedProject.FullPath {
-			p.selectedProject = &p.projects[i]
-			break
-		}
-	}
 }
