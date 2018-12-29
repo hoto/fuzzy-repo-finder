@@ -7,6 +7,10 @@ import (
 	"github.com/sahilm/fuzzy"
 )
 
+const (
+	LettersNumbersSpecialCharacters = 0
+)
+
 type Terminal struct {
 	display          *display
 	projectNameField *field
@@ -40,15 +44,16 @@ func (Terminal) Close() {
 }
 
 func (t *Terminal) Cycle() ExitCode {
+	selectedProject := t.filteredProjects.Get(0)
 	t.filterProjects()
 	t.display.adjustQueryCursorPosition(t.projectNameField)
 	t.display.displayQuery(t.projectNameField)
-	t.display.displayProjects(&t.filteredProjects)
+	t.display.displayProjects(&t.filteredProjects, &selectedProject)
 	t.display.refresh()
 	event := termbox.PollEvent()
 	if event.Type == termbox.EventKey {
 		switch event.Key {
-		case 0, termbox.KeySpace:
+		case LettersNumbersSpecialCharacters:
 			t.projectNameField.appendToQuery(event.Ch)
 			t.display.adjustQueryCursorPosition(t.projectNameField)
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
@@ -58,7 +63,6 @@ func (t *Terminal) Cycle() ExitCode {
 			t.projectNameField.eraseQuery()
 			t.display.adjustQueryCursorPosition(t.projectNameField)
 		case termbox.KeyEnter:
-			selectedProject := t.filteredProjects.Get(0)
 			config.PersistSelectedProject(selectedProject)
 			return NORMAL_EXIT
 		case termbox.KeyCtrlC:

@@ -41,7 +41,7 @@ func (display) displayQuery(field *field) {
 	}
 }
 
-func (display) displayProjects(projects *proj.Projects) {
+func (display) displayProjects(projects *proj.Projects, selectedProject *proj.Project) {
 	currentLineNum := projectsVerticalOffset
 	for _, group := range projects.ListGroups() {
 		for charOffset, char := range []rune(group) {
@@ -54,6 +54,7 @@ func (display) displayProjects(projects *proj.Projects) {
 		}
 		currentLineNum += 1
 		for _, project := range projects.List() {
+			projectBgColor := highlightedIfSelected(project, selectedProject)
 			if project.Group == group {
 				for charOffset, char := range []rune(project.Name) {
 					termbox.SetCell(
@@ -61,12 +62,19 @@ func (display) displayProjects(projects *proj.Projects) {
 						currentLineNum,
 						char,
 						termbox.ColorDefault,
-						termbox.ColorDefault)
+						projectBgColor)
 				}
 				currentLineNum += 1
 			}
 		}
 	}
+}
+
+func highlightedIfSelected(project proj.Project, selectedProject *proj.Project) termbox.Attribute {
+	if selectedProject != nil && project.FullPath == selectedProject.FullPath {
+		return termbox.ColorCyan
+	}
+	return termbox.ColorDefault
 }
 
 func (d *display) adjustQueryCursorPosition(field *field) {
