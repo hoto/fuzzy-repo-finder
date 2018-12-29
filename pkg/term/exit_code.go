@@ -3,7 +3,7 @@ package term
 type ExitCode int
 
 const (
-	CONTINUE ExitCode = iota + 1
-	NORMAL_EXIT
-	ABNORMAL_EXIT
+	ContinueRunning ExitCode = iota + 1
+	NormalExit
+	AbnormalExit
 )

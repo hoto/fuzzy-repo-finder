@@ -41,7 +41,7 @@ func (display) displayField(field *field) {
 	}
 }
 
-func (display) displayProjects(projects *proj.Projects, selectedProject *proj.Project) {
+func (display) displayProjects(projects *proj.Projects, selectedProjectIndex int) {
 	currentLineNum := projectsVerticalOffset
 	for _, group := range projects.ListGroups() {
 		for charOffset, char := range []rune(group) {
@@ -54,7 +54,7 @@ func (display) displayProjects(projects *proj.Projects, selectedProject *proj.Pr
 		}
 		currentLineNum += 1
 		for _, project := range projects.List() {
-			projectBgColor := highlightedIfSelected(project, selectedProject)
+			projectBgColor := highlightedIfSelected(projects, project, selectedProjectIndex)
 			if project.Group == group {
 				for charOffset, char := range []rune(project.Name) {
 					termbox.SetCell(
@@ -70,8 +70,8 @@ func (display) displayProjects(projects *proj.Projects, selectedProject *proj.Pr
 	}
 }
 
-func highlightedIfSelected(project proj.Project, selectedProject *proj.Project) termbox.Attribute {
-	if selectedProject != nil && project.FullPath == selectedProject.FullPath {
+func highlightedIfSelected(projects *proj.Projects, project proj.Project, selectedProjectIndex int) termbox.Attribute {
+	if project == projects.Get(selectedProjectIndex) {
 		return termbox.ColorCyan
 	}
 	return termbox.ColorDefault

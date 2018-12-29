@@ -48,10 +48,12 @@ func (p *Projects) Size() int {
 	return len(p.projects)
 }
 
+// implements fuzzy.Source
 func (p Projects) Len() int {
 	return p.Size()
 }
 
+// implements fuzzy.Source
 func (p Projects) String(i int) string {
 	return p.projects[i].Name
 }

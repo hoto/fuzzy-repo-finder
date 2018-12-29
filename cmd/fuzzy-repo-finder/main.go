@@ -34,11 +34,11 @@ func run(projects proj.Projects, query string) int {
 	for {
 		rc := terminal.Cycle()
 		switch rc {
-		case term.CONTINUE:
+		case term.ContinueRunning:
 			continue
-		case term.NORMAL_EXIT:
+		case term.NormalExit:
 			return 0
-		case term.ABNORMAL_EXIT:
+		case term.AbnormalExit:
 			return 1
 		}
 	}
