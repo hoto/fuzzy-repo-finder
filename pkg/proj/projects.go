@@ -70,3 +70,15 @@ func (p *Projects) Get(i int) Project {
 func (p *Projects) GetFirst() Project {
 	return p.Get(0)
 }
+
+func (p *Projects) GetNextProject(project Project) Project {
+	for i, currentProject := range p.projects {
+		if project == currentProject {
+			if len(p.projects)-1 == i {
+				return project
+			}
+			return p.projects[i+1]
+		}
+	}
+	return Project{}
+}

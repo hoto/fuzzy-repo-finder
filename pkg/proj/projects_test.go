@@ -124,3 +124,29 @@ func Test_should_make_a_deep_copy(t *testing.T) {
 
 	assert.NotEqual(t, projectsCopy, projects)
 }
+
+func Test_should_return_empty_next_project(t *testing.T) {
+	project := Project{}
+	projects := NewProjects()
+
+	assert.Equal(t, emptyProject, projects.GetNextProject(project))
+}
+
+func Test_should_return_next_project(t *testing.T) {
+	projects := NewProjects()
+	project1 := Project{Name: "PROJECT_1"}
+	project2 := Project{Name: "PROJECT_2"}
+	project3 := Project{Name: "PROJECT_3"}
+	project4 := Project{Name: "PROJECT_4"}
+	projects.AddAll([]Project{project1, project2, project3, project4})
+
+	assert.Equal(t, project3, projects.GetNextProject(project2))
+}
+
+func Test_should_return_same_project_as_next(t *testing.T) {
+	projects := NewProjects()
+	project1 := Project{Name: "PROJECT_1"}
+	projects.Add(project1)
+
+	assert.Equal(t, project1, projects.GetNextProject(project1))
+}
