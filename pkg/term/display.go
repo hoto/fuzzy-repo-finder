@@ -21,7 +21,7 @@ func NewDisplay() *display {
 	}
 }
 
-func (display) displayQuery(field *field) {
+func (display) displayField(field *field) {
 	for charHorizontalOffset, char := range field.titleRunes() {
 		termbox.SetCell(
 			charHorizontalOffset,
@@ -77,7 +77,7 @@ func highlightedIfSelected(project proj.Project, selectedProject *proj.Project) 
 	return termbox.ColorDefault
 }
 
-func (d *display) adjustQueryCursorPosition(field *field) {
+func (d *display) positionCursor(field *field) {
 	d.queryCursorPosition.x = field.fieldSize()
 	termbox.SetCursor(d.queryCursorPosition.x, d.queryCursorPosition.y)
 }

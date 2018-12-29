@@ -46,8 +46,8 @@ func (Terminal) Close() {
 func (t *Terminal) Cycle() ExitCode {
 	selectedProject := t.filteredProjects.Get(0)
 	t.filterProjects()
-	t.display.adjustQueryCursorPosition(t.projectNameField)
-	t.display.displayQuery(t.projectNameField)
+	t.display.positionCursor(t.projectNameField)
+	t.display.displayField(t.projectNameField)
 	t.display.displayProjects(&t.filteredProjects, &selectedProject)
 	t.display.refresh()
 	event := termbox.PollEvent()
@@ -55,13 +55,13 @@ func (t *Terminal) Cycle() ExitCode {
 		switch event.Key {
 		case LettersNumbersSpecialCharacters:
 			t.projectNameField.appendToQuery(event.Ch)
-			t.display.adjustQueryCursorPosition(t.projectNameField)
+			t.display.positionCursor(t.projectNameField)
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
 			t.projectNameField.deleteLastQueryChar()
-			t.display.adjustQueryCursorPosition(t.projectNameField)
+			t.display.positionCursor(t.projectNameField)
 		case termbox.KeyCtrlW:
 			t.projectNameField.eraseQuery()
-			t.display.adjustQueryCursorPosition(t.projectNameField)
+			t.display.positionCursor(t.projectNameField)
 		case termbox.KeyEnter:
 			config.PersistSelectedProject(selectedProject)
 			return NORMAL_EXIT
