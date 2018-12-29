@@ -36,6 +36,6 @@ func createConfigDir() {
 
 func ParseArguments() string {
 	args := os.Args[1:]
-	arg := strings.Join(args, " ")
+	arg := strings.Join(args, "")
 	return arg
 }
