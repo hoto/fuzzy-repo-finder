@@ -29,6 +29,21 @@ func Test_should_return_empty_project(t *testing.T) {
 	assert.Equal(t, emptyProject, projects.Get(0))
 }
 
+func Test_should_return_empty_first_project(t *testing.T) {
+	projects := NewProjects()
+
+	assert.Equal(t, emptyProject, projects.GetFirst())
+}
+
+func Test_should_return_first_project(t *testing.T) {
+	project1 := Project{Name: "PROJECT_1"}
+	project2 := Project{Name: "PROJECT_2"}
+	projects := NewProjects()
+	projects.AddAll([]Project{project1, project2})
+
+	assert.Equal(t, project1, projects.GetFirst())
+}
+
 func Test_should_retain_a_project(t *testing.T) {
 	project := Project{Name: "PROJECT_1"}
 	projects := NewProjects()

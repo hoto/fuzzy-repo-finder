@@ -66,3 +66,7 @@ func (p *Projects) Get(i int) Project {
 	}
 	return p.projects[i]
 }
+
+func (p *Projects) GetFirst() Project {
+	return p.Get(0)
+}
