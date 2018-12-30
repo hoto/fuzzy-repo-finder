@@ -3,6 +3,7 @@ all: clean build test
 clean:
 	go clean
 	rm -rf bin/
+	rm -rf dist/
 
 build:
 	go build -o bin/fuzzy-repo-finder cmd/fuzzy-repo-finder/main.go
