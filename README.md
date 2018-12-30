@@ -45,7 +45,11 @@ Or without arguments:
 
 ### Screenshots
 
-![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png)
+![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/001.png)  
+
+![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/002.gif)  
+
+![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/005.gif)  
 
 ---
 
