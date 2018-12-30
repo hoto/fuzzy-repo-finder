@@ -16,8 +16,7 @@ jobs:
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
-      - run: make dependencies
-      - run: curl -sL https://git.io/goreleaser | bash
+      - run: make release
 
 workflows:
   version: 2

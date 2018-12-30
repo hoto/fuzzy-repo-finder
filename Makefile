@@ -20,3 +20,9 @@ run: clean build
 
 install: clean build
 	go install -v ./...
+
+release: dependencies
+	curl -sL https://git.io/goreleaser | bash
+
+release_dry_run: dependencies
+	goreleaser release --skip-publish --rm-dist
