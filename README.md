@@ -26,7 +26,7 @@ Add alias to `~/.bashrc` or `~/.zshrc`:
 
     function go_to_project() {
       local pattern=$1
-      fuzzy-repo-finder ${pattern}
+      ~/bin/fuzzy-repo-finder ${pattern}
       local selectedProjectPath="$(cat ~/.fuzzy-repo-finder/selected_project.txt)"
       cd "${selectedProjectPath}"
     }
