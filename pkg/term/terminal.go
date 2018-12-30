@@ -4,7 +4,6 @@ import (
 	"github.com/hoto/fuzzy-repo-finder/pkg/config"
 	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"github.com/nsf/termbox-go"
-	"github.com/sahilm/fuzzy"
 )
 
 const (
@@ -83,16 +82,7 @@ func (t *Terminal) Cycle() ExitCode {
 }
 
 func (t *Terminal) filterProjects() {
-	if t.projectNameField.queryIsEmpty() {
-		t.filteredProjects = t.allProjects
-		return
-	}
-	matchedProjects := proj.NewProjects()
-	matches := fuzzy.FindFrom(t.projectNameField.queryString(), t.allProjects)
-	for _, match := range matches {
-		matchedProjects.Add(t.allProjects.Get(match.Index))
-	}
-	t.filteredProjects = matchedProjects
+	t.filteredProjects = proj.FuzzyMatch(t.projectNameField.queryString(), t.allProjects)
 }
 
 func (t *Terminal) selectPreviousProject() {
