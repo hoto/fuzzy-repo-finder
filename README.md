@@ -18,7 +18,8 @@ Linux:
       "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc2/fuzzy-repo-finder_1.0.0-rc2_$(uname -s)_$(uname -m)" \
        -o /usr/local/bin/fuzzy-repo-finder
 
-Add to `~/.bashrc` or `~/.zshrc`:
+Add alias to `~/.bashrc` or `~/.zshrc`:
+Using a `cd` to change the directory is needed as child process can't change the working directory of a parent process.
 
     function go_to_project() {
       local pattern=$1
@@ -70,19 +71,16 @@ Install to global golang bin directory:
     make install
 
 ### TODO:
-* Publish releases on github on every git tag
-* Add installation instructions using github releases
-* Setup brew,fedora,debian,ubuntu,arch,packman repo
 * Stop walking directories tree when a match is find (optimization)
+* Setup brew,fedora,debian,ubuntu,arch,packman repo
 * Make $HOME a default project root if not provided
-* Query by group
-* Add a gif as a demo instead of screenshot
+* Query projects by group
+* Add a gif as a demo on top of screenshots
 * Read config file from `~/.fuzzy-repo-finder/config.yml`
 * Pass flags which can override `config.yml`
 * Save found repositories in `~/.fuzzy-repo-finder/repositories_statistics.yml`
-* Display cached repos from `repos.yml` before updating with real data
-* Sort repos by usage or alphabetically
-* Show dirty status of a repository using `*`
+* Sort repos by usage on/off switch
+* Show dirty status of a repositories using `*`
 * How I want the presentation to look like:
 
 ```
