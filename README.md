@@ -8,11 +8,13 @@ Command line tool for finding your git project.
 
 ### Installation
 
-Download binary from [releases](<NEED_LINK>):
+Download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releases):
 
-    curl <NEED_LINK> -o /bin
+Linux:
 
-Add to `~/.bashrc`, `~/.zshrc` or `~/.profile`:
+    sudo curl -L "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc2/fuzzy-repo-finder_1.0.0-rc2_$(uname -s)_$(uname -m)" -o /usr/local/bin/fuzzy-repo-finder
+
+Add to `~/.bashrc` or `~/.zshrc`:
 
     function go_to_project() {
       local pattern=$1
@@ -22,14 +24,21 @@ Add to `~/.bashrc`, `~/.zshrc` or `~/.profile`:
     }
     alias g='go_to_project'
 
+You can chose any alias name you want. In my case I'm using `g`.
 
 Use in terminal:
 
     $ g myprojectname
+    
+Or without arguments:
+
+    $ g
 
 ### Demo
 
 ![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png)
+
+---
 
 ### Development
 
@@ -41,24 +50,18 @@ Download dependencies:
 
     make download
 
-Clean:
+Build, test and run:
 
     make clean
-
-Build:
-
     make build
-
-Test:
-
     make test
-
-Run: 
-
     make run
-    make args="projectname" run
 
-Install:
+Run with arguments:
+
+    make args="myprojectname" run
+
+Install to global golang bin directory:
 
     make install
 
@@ -69,6 +72,7 @@ Install:
 * Stop walking directories tree when a match is find (optimization)
 * Make $HOME a default project root if not provided
 * Query by group
+* Add a gif as a demo instead of screenshot
 * Read config file from `~/.fuzzy-repo-finder/config.yml`
 * Pass flags which can override `config.yml`
 * Save found repositories in `~/.fuzzy-repo-finder/repositories_statistics.yml`
