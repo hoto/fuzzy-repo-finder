@@ -21,7 +21,7 @@ type Terminal struct {
 func NewTerminal(projects proj.Projects, query string) *Terminal {
 	return &Terminal{
 		display:          NewDisplay(),
-		projectNameField: NewField("Name: ", query),
+		projectNameField: NewField("Search: ", query),
 		allProjects:      projects,
 		filteredProjects: projects,
 		projectSelector:  NewProjectSelector(projects),
