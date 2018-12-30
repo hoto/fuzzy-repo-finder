@@ -1,6 +1,6 @@
 ---
-# https://circleci.com/docs/2.0/language-go
 version: 2
+
 jobs:
   build:
     docker:
@@ -10,3 +10,20 @@ jobs:
       - checkout
       - run: make download
       - run: make test
+  release:
+    docker:
+      - image: circleci/golang:1.11.3
+    steps:
+      - checkout
+      - run: curl -sL https://git.io/goreleaser | bash
+
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
