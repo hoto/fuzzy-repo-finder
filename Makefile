@@ -25,4 +25,4 @@ release: dependencies
 	curl -sL https://git.io/goreleaser | bash
 
 release_dry_run: dependencies
-	goreleaser release --skip-publish --rm-dist
+	goreleaser release --skip-publish --snapshot --rm-dist
