@@ -4,9 +4,9 @@
 [![Release](https://img.shields.io/github/release/hoto/fuzzy-repo-finder.svg?style=flat-square)](https://github.com/hoto/fuzzy-repo-finder/releases/latest)
 # Fuzzy Repo Finder
 
-WIP: This is still a prototype.
+Command line tool for navigating git repositories.
 
-Command line tool for finding your git project.
+WIP: This app is still in prototype phase.
 
 ### Installation
 

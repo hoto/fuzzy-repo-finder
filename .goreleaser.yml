@@ -20,3 +20,5 @@ changelog:
     exclude:
       - '^Docs:'
       - '^Test:'
+      - '^Update readme'
+      - '^Update readme.*'
