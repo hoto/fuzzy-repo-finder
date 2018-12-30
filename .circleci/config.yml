@@ -13,6 +13,7 @@ jobs:
   release:
     docker:
       - image: circleci/golang:1.11.3
+    working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
       - run: make dependencies
