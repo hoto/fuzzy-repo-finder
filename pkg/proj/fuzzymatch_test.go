@@ -2,7 +2,6 @@ package proj
 
 import (
 	"github.com/stretchr/testify/assert"
-	"sort"
 	"testing"
 )
 
@@ -62,7 +61,7 @@ func Test_should_return_all_projects_when_all_are_matching(t *testing.T) {
 
 	filteredProjects := FuzzyMatch("PROJECT_", projects)
 
-	assert.EqualValues(t, []Project{project1, project2, project3, project4}, sortByFullPath(filteredProjects))
+	assert.EqualValues(t, []Project{project4, project3, project2, project1}, filteredProjects.List())
 }
 
 func Test_should_return_multiple_matches(t *testing.T) {
@@ -75,11 +74,18 @@ func Test_should_return_multiple_matches(t *testing.T) {
 
 	filteredProjects := FuzzyMatch("B_PROJECT", projects)
 
-	assert.EqualValues(t, []Project{project3, project4}, sortByFullPath(filteredProjects))
+	assert.EqualValues(t, []Project{project4, project3}, filteredProjects.List())
 }
 
-func sortByFullPath(filteredProjects Projects) []Project {
-	sortedProjects := filteredProjects.List()
-	sort.Sort(FullPathSorter(sortedProjects))
-	return sortedProjects
+func Test_should_sort_using_a_matching_score(t *testing.T) {
+	projects := NewProjects()
+	project1 := Project{Name: "myproject1", FullPath: "FULL_PATH_1"}
+	project2 := Project{Name: "project2", FullPath: "FULL_PATH_2"}
+	project3 := Project{Name: "someproject3", FullPath: "FULL_PATH_3"}
+	project4 := Project{Name: "aproject4", FullPath: "FULL_PATH_4"}
+	projects.AddAll([]Project{project1, project2, project3, project4})
+
+	filteredProjects := FuzzyMatch("project", projects)
+
+	assert.EqualValues(t, []Project{project2, project4, project1, project3}, filteredProjects.List())
 }
