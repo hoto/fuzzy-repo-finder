@@ -4,6 +4,8 @@
 [![Release](https://img.shields.io/github/release/golang-standards/project-layout.svg?style=flat-square)](https://github.com/hoto/fuzzy-repo-finder/releases/latest)
 # Fuzzy Repo Finder
 
+WIP: This is still a prototype.
+
 Command line tool for finding your git project.
 
 ### Installation
@@ -12,7 +14,9 @@ Download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releas
 
 Linux:
 
-    sudo curl -L "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc2/fuzzy-repo-finder_1.0.0-rc2_$(uname -s)_$(uname -m)" -o /usr/local/bin/fuzzy-repo-finder
+    sudo curl -L \
+      "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc2/fuzzy-repo-finder_1.0.0-rc2_$(uname -s)_$(uname -m)" \
+       -o /usr/local/bin/fuzzy-repo-finder
 
 Add to `~/.bashrc` or `~/.zshrc`:
 
