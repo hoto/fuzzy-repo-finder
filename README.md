@@ -38,7 +38,7 @@ Or without arguments:
 
     $ g
 
-### Demo
+### Screenshots
 
 ![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/fuzzy-repo-finder-demo-001.png)
 
@@ -52,7 +52,7 @@ Get:
 
 Download dependencies:
 
-    make download
+    make dependencies
 
 Build, test and run:
 

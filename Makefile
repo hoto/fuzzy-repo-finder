@@ -5,7 +5,11 @@ clean:
 	rm -rf bin/
 	rm -rf dist/
 
-build:
+dependencies:
+	dep ensure
+	go get -v -t -d ./...
+
+build: deps
 	go build -o bin/fuzzy-repo-finder cmd/fuzzy-repo-finder/main.go
 
 test:
@@ -13,9 +17,6 @@ test:
 
 run: clean build
 	./bin/fuzzy-repo-finder $(arg)
-
-download:
-	go get -v -t -d ./...
 
 install: clean build
 	go install -v ./...

@@ -8,14 +8,14 @@ jobs:
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
-      - run: make download
+      - run: make dependencies
       - run: make test
   release:
     docker:
       - image: circleci/golang:1.11.3
     steps:
       - checkout
-      - run: make download
+      - run: make dependencies
       - run: curl -sL https://git.io/goreleaser | bash
 
 workflows:
