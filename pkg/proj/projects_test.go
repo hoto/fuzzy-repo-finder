@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	emptyProject  = Project{}
-	emptyProjects = make([]Project, 0)
+	emptyProject      = Project{}
+	emptyProjectsList = make([]Project, 0)
 )
 
 func Test_should_be_empty(t *testing.T) {
@@ -20,7 +20,7 @@ func Test_should_be_empty(t *testing.T) {
 func Test_should_return_empty_projects(t *testing.T) {
 	projects := NewProjects()
 
-	assert.Equal(t, emptyProjects, projects.List())
+	assert.Equal(t, emptyProjectsList, projects.List())
 }
 
 func Test_should_return_empty_project(t *testing.T) {
@@ -123,30 +123,4 @@ func Test_should_make_a_deep_copy(t *testing.T) {
 	projects.Add(project2)
 
 	assert.NotEqual(t, projectsCopy, projects)
-}
-
-func Test_should_return_empty_next_project(t *testing.T) {
-	project := Project{}
-	projects := NewProjects()
-
-	assert.Equal(t, emptyProject, projects.GetNextProject(project))
-}
-
-func Test_should_return_next_project(t *testing.T) {
-	projects := NewProjects()
-	project1 := Project{Name: "PROJECT_1"}
-	project2 := Project{Name: "PROJECT_2"}
-	project3 := Project{Name: "PROJECT_3"}
-	project4 := Project{Name: "PROJECT_4"}
-	projects.AddAll([]Project{project1, project2, project3, project4})
-
-	assert.Equal(t, project3, projects.GetNextProject(project2))
-}
-
-func Test_should_return_same_project_as_next(t *testing.T) {
-	projects := NewProjects()
-	project1 := Project{Name: "PROJECT_1"}
-	projects.Add(project1)
-
-	assert.Equal(t, project1, projects.GetNextProject(project1))
 }
