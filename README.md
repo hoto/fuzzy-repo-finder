@@ -14,11 +14,13 @@ Download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releas
 
 Linux:
 
-    sudo curl -L \
+    mkdir ~/bin
+    
+    curl -L \
       "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc8/fuzzy-repo-finder_1.0.0-rc8_$(uname -s)_$(uname -m)" \
-       -o /usr/local/bin/fuzzy-repo-finder
+       -o ~/bin/fuzzy-repo-finder
 
-    sudo chmod +x /usr/local/bin/fuzzy-repo-finder
+    chmod +x ~/bin/fuzzy-repo-finder
 
 Add alias to `~/.bashrc` or `~/.zshrc`:  
 
