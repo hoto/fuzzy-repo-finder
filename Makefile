@@ -9,7 +9,7 @@ dependencies:
 	dep ensure
 	go get -v -t -d ./...
 
-build: deps
+build: dependencies
 	go build -o bin/fuzzy-repo-finder cmd/fuzzy-repo-finder/main.go
 
 test:
