@@ -43,7 +43,37 @@ Or without arguments:
 
     $ g
 
-### Screenshots
+### Demo
+
+From directory structure:
+
+```
+~/projects
+  ├── group_A
+  │   ├── project_1
+  │   ├── project_2
+  │   └── project_3
+  └── group_B
+      ├── project_1
+      ├── project_2
+      └── project_3
+
+```
+
+Output would be:
+
+```
+Search: 
+group_A
+    project_1
+    project_2
+    project_3
+group_B
+    project_1
+    project_2
+    project_3
+```
+
 
 ![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/001.png)  
 
