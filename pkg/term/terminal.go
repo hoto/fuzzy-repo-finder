@@ -11,20 +11,20 @@ const (
 )
 
 type Terminal struct {
-	display              *display
-	projectNameField     *field
-	allProjects          proj.Projects
-	filteredProjects     proj.Projects
-	selectedProjectIndex int
+	display          *display
+	projectNameField *field
+	allProjects      proj.Projects
+	filteredProjects proj.Projects
+	projectSelector  *projectSelector
 }
 
 func NewTerminal(projects proj.Projects, query string) *Terminal {
 	return &Terminal{
-		display:              NewDisplay(),
-		projectNameField:     NewField("Name: ", query),
-		allProjects:          projects,
-		filteredProjects:     projects,
-		selectedProjectIndex: 0,
+		display:          NewDisplay(),
+		projectNameField: NewField("Name: ", query),
+		allProjects:      projects,
+		filteredProjects: projects,
+		projectSelector:  NewProjectSelector(projects),
 	}
 }
 
@@ -46,10 +46,11 @@ func (Terminal) Close() {
 
 func (t *Terminal) Cycle() ExitCode {
 	t.filterProjects()
-	t.bindSelectedProject()
+	t.projectSelector.setProjects(t.filteredProjects)
+	t.projectSelector.bindSelectedProject()
 	t.display.positionCursor(t.projectNameField)
 	t.display.displayField(t.projectNameField)
-	t.display.displayProjects(&t.filteredProjects, t.selectedProjectIndex)
+	t.display.displayProjects(&t.filteredProjects, t.projectSelector.index())
 	t.display.refresh()
 	event := termbox.PollEvent()
 	if event.Type == termbox.EventKey {
@@ -57,21 +58,22 @@ func (t *Terminal) Cycle() ExitCode {
 		case LettersNumbersAndSpecialCharacters:
 			t.projectNameField.appendToQuery(event.Ch)
 			t.display.positionCursor(t.projectNameField)
-			t.resetSelectedProject()
+			t.projectSelector.resetSelectedProject()
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
 			t.projectNameField.deleteLastQueryChar()
 			t.display.positionCursor(t.projectNameField)
-			t.resetSelectedProject()
+			t.projectSelector.resetSelectedProject()
 		case termbox.KeyCtrlW:
 			t.projectNameField.eraseQuery()
 			t.display.positionCursor(t.projectNameField)
-			t.resetSelectedProject()
+			t.projectSelector.resetSelectedProject()
 		case termbox.KeyArrowUp:
-			t.selectPreviousProject()
+			t.projectSelector.selectPreviousProject()
 		case termbox.KeyArrowDown:
-			t.selectNextProject()
+			t.projectSelector.selectNextProject()
 		case termbox.KeyEnter:
-			config.PersistSelectedProject(t.filteredProjects.Get(t.selectedProjectIndex))
+			selectedProject := t.filteredProjects.Get(t.projectSelector.selectedProjectIndex)
+			config.PersistSelectedProject(selectedProject)
 			return NormalExit
 		case termbox.KeyCtrlC:
 			return AbnormalExit
@@ -83,28 +85,4 @@ func (t *Terminal) Cycle() ExitCode {
 
 func (t *Terminal) filterProjects() {
 	t.filteredProjects = proj.FuzzyMatch(t.projectNameField.queryString(), t.allProjects)
-}
-
-func (t *Terminal) selectPreviousProject() {
-	t.selectedProjectIndex -= 1
-	t.bindSelectedProject()
-}
-
-func (t *Terminal) selectNextProject() {
-	t.selectedProjectIndex += 1
-	t.bindSelectedProject()
-}
-
-func (t *Terminal) bindSelectedProject() {
-	projectsSize := t.filteredProjects.Size()
-	if t.selectedProjectIndex < 0 {
-		t.selectedProjectIndex = projectsSize - 1
-	}
-	if projectsSize < t.selectedProjectIndex+1 {
-		t.selectedProjectIndex = 0
-	}
-}
-
-func (t *Terminal) resetSelectedProject() {
-	t.selectedProjectIndex = 0
 }
