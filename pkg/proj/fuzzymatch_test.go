@@ -13,19 +13,19 @@ var (
 	emptyProjects = NewProjects()
 )
 
-func Test_should_return_empty_projects_when_inputs_are_empty(t *testing.T) {
+func Test_return_empty_projects_when_inputs_are_empty(t *testing.T) {
 	filteredProjects := FuzzyMatch(emptyQuery, emptyProjects)
 
 	assert.Equal(t, emptyProjects, filteredProjects)
 }
 
-func Test_should_return_empty_projects_when_query_is_not_empty(t *testing.T) {
+func Test_return_empty_projects_when_query_is_not_empty(t *testing.T) {
 	filteredProjects := FuzzyMatch("PROJECT_1", emptyProjects)
 
 	assert.Equal(t, emptyProjectsList, filteredProjects.List())
 }
 
-func Test_should_return_single_match(t *testing.T) {
+func Test_return_single_match(t *testing.T) {
 	projects := NewProjects()
 	project1 := Project{Name: "PROJECT_1"}
 	project2 := Project{Name: "PROJECT_2"}
@@ -38,7 +38,7 @@ func Test_should_return_single_match(t *testing.T) {
 	assert.Equal(t, []Project{project2}, filteredProjects.List())
 }
 
-func Test_should_return_all_projects_when_query_is_empty(t *testing.T) {
+func Test_return_all_projects_when_query_is_empty(t *testing.T) {
 	projects := NewProjects()
 	project1 := Project{Name: "PROJECT_1"}
 	project2 := Project{Name: "PROJECT_2"}
@@ -51,7 +51,7 @@ func Test_should_return_all_projects_when_query_is_empty(t *testing.T) {
 	assert.Equal(t, []Project{project1, project2, project3, project4}, filteredProjects.List())
 }
 
-func Test_should_return_all_projects_when_all_are_matching(t *testing.T) {
+func Test_return_all_projects_when_all_are_matching(t *testing.T) {
 	projects := NewProjects()
 	project1 := Project{Name: "A_PROJECT_1", FullPath: "FULL_PATH_1"}
 	project2 := Project{Name: "A_PROJECT_2", FullPath: "FULL_PATH_2"}
@@ -64,7 +64,7 @@ func Test_should_return_all_projects_when_all_are_matching(t *testing.T) {
 	assert.EqualValues(t, []Project{project4, project3, project2, project1}, filteredProjects.List())
 }
 
-func Test_should_return_multiple_matches(t *testing.T) {
+func Test_return_multiple_matches(t *testing.T) {
 	projects := NewProjects()
 	project1 := Project{Name: "A_PROJECT_1", FullPath: "FULL_PATH_1"}
 	project2 := Project{Name: "A_PROJECT_2", FullPath: "FULL_PATH_2"}
@@ -77,7 +77,7 @@ func Test_should_return_multiple_matches(t *testing.T) {
 	assert.EqualValues(t, []Project{project4, project3}, filteredProjects.List())
 }
 
-func Test_should_sort_using_a_matching_score(t *testing.T) {
+func Test_sort_using_a_matching_score(t *testing.T) {
 	projects := NewProjects()
 	project1 := Project{Name: "myproject1", FullPath: "FULL_PATH_1"}
 	project2 := Project{Name: "project2", FullPath: "FULL_PATH_2"}
