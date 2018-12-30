@@ -15,7 +15,7 @@ Download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releas
 Linux:
 
     sudo curl -L \
-      "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc2/fuzzy-repo-finder_1.0.0-rc2_$(uname -s)_$(uname -m)" \
+      "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc7/fuzzy-repo-finder_1.0.0-rc7_$(uname -s)_$(uname -m)" \
        -o /usr/local/bin/fuzzy-repo-finder
 
 Add alias to `~/.bashrc` or `~/.zshrc`:
