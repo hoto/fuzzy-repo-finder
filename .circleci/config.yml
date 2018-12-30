@@ -15,6 +15,7 @@ jobs:
       - image: circleci/golang:1.11.3
     steps:
       - checkout
+      - run: make download
       - run: curl -sL https://git.io/goreleaser | bash
 
 workflows:
