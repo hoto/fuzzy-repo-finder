@@ -17,6 +17,8 @@ Linux:
     sudo curl -L \
       "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.0.0-rc7/fuzzy-repo-finder_1.0.0-rc7_$(uname -s)_$(uname -m)" \
        -o /usr/local/bin/fuzzy-repo-finder
+       
+    sudo chmod +x /usr/local/bin/fuzzy-repo-finder
 
 Add alias to `~/.bashrc` or `~/.zshrc`:
 Using a `cd` to change the directory is needed as child process can't change the working directory of a parent process.
