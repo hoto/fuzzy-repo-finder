@@ -2,16 +2,21 @@ package proj
 
 import (
 	"github.com/sahilm/fuzzy"
+	"sort"
 )
 
 func FuzzyMatch(needle string, haystack Projects) Projects {
-	if len(needle) <= 0 {
+	if len(needle) == 0 {
 		return haystack
 	}
-	matchedProjects := NewProjects()
+	matchingProjects := NewProjects()
 	matches := fuzzy.FindFrom(needle, haystack)
 	for _, match := range matches {
-		matchedProjects.Add(haystack.Get(match.Index))
+		matchingProjects.Add(haystack.Get(match.Index))
 	}
-	return matchedProjects
+	sortedProjects := matchingProjects.List()
+	sort.Sort(FullPathSorter(sortedProjects))
+	projs := NewProjects()
+	projs.AddAll(sortedProjects)
+	return projs
 }
