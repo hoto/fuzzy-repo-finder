@@ -2,6 +2,7 @@ package proj
 
 import (
 	"github.com/stretchr/testify/assert"
+	"sort"
 	"testing"
 )
 
@@ -51,7 +52,7 @@ func Test_should_return_all_projects_when_query_is_empty(t *testing.T) {
 	assert.Equal(t, []Project{project1, project2, project3, project4}, filteredProjects.List())
 }
 
-func Test_should_return_all_projects_when_all_matches(t *testing.T) {
+func Test_should_return_all_projects_when_all_are_matching(t *testing.T) {
 	projects := NewProjects()
 	project1 := Project{Name: "A_PROJECT_1", FullPath: "FULL_PATH_1"}
 	project2 := Project{Name: "A_PROJECT_2", FullPath: "FULL_PATH_2"}
@@ -61,7 +62,7 @@ func Test_should_return_all_projects_when_all_matches(t *testing.T) {
 
 	filteredProjects := FuzzyMatch("PROJECT_", projects)
 
-	assert.Equal(t, []Project{project1, project2, project3, project4}, filteredProjects.List())
+	assert.EqualValues(t, []Project{project1, project2, project3, project4}, sortByFullPath(filteredProjects))
 }
 
 func Test_should_return_multiple_matches(t *testing.T) {
@@ -74,18 +75,11 @@ func Test_should_return_multiple_matches(t *testing.T) {
 
 	filteredProjects := FuzzyMatch("B_PROJECT", projects)
 
-	assert.Equal(t, []Project{project3, project4}, filteredProjects.List())
+	assert.EqualValues(t, []Project{project3, project4}, sortByFullPath(filteredProjects))
 }
 
-func Test_should_not_change_the_order_of_projects(t *testing.T) {
-	projects := NewProjects()
-	project1 := Project{Name: "A_PROJECT_1", FullPath: "FULL_PATH"}
-	project2 := Project{Name: "A_PROJECT_2", FullPath: "FULL_PATH"}
-	project3 := Project{Name: "B_PROJECT_3", FullPath: "FULL_PATH"}
-	project4 := Project{Name: "B_PROJECT_4", FullPath: "FULL_PATH"}
-	projects.AddAll([]Project{project1, project2, project3, project4})
-
-	filteredProjects := FuzzyMatch("PROJECT", projects)
-
-	assert.Equal(t, []Project{project1, project2, project3, project4}, filteredProjects.List())
+func sortByFullPath(filteredProjects Projects) []Project {
+	sortedProjects := filteredProjects.List()
+	sort.Sort(FullPathSorter(sortedProjects))
+	return sortedProjects
 }
