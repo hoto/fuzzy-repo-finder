@@ -6,8 +6,8 @@ clean:
 	rm -rf dist/
 
 dependencies:
-	dep ensure
 	go get -v -t -d ./...
+	dep ensure
 
 build: dependencies
 	go build -o bin/fuzzy-repo-finder cmd/fuzzy-repo-finder/main.go
