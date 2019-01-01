@@ -10,19 +10,22 @@ import (
 
 func main() {
 	config.ParseArguments()
+	projects := readProjectsFromDisk()
+	os.Exit(loop(projects))
+}
 
+func readProjectsFromDisk() proj.Projects {
 	filesystem := io.NewFilesystem(io.Disk{})
 	allProjects := proj.NewProjects()
 	for _, root := range config.Roots {
 		projects := filesystem.FindGitProjects(root)
 		allProjects.AddAll(projects.List())
 	}
-
-	os.Exit(run(allProjects, config.Query))
+	return allProjects
 }
 
-func run(projects proj.Projects, query string) int {
-	terminal := term.NewTerminal(projects, query)
+func loop(projects proj.Projects) int {
+	terminal := term.NewTerminal(projects, config.Query)
 	terminal.Init()
 	defer terminal.Close()
 
