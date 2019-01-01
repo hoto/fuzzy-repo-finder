@@ -9,7 +9,12 @@ import (
 var (
 	Query string
 
-	home                = os.Getenv("HOME")
+	home = os.Getenv("HOME")
+
+	projectsRoot   = home + "/projects"
+	goProjectsRoot = home + "/go/src"
+	Roots          = []string{projectsRoot, goProjectsRoot}
+
 	configDir           = home + "/.fuzzy-repo-finder"
 	selectedProjectFile = configDir + "/selected_project.txt"
 )

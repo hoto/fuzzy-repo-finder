@@ -8,20 +8,15 @@ import (
 	"os"
 )
 
-var (
-	projectsRoot   = os.Getenv("HOME") + "/projects"
-	goProjectsRoot = os.Getenv("HOME") + "/go/src"
-)
-
 func main() {
 	config.ParseArguments()
 
 	filesystem := io.NewFilesystem(io.Disk{})
-	projects := filesystem.FindGitProjects(projectsRoot)
-	goProjects := filesystem.FindGitProjects(goProjectsRoot)
 	allProjects := proj.NewProjects()
-	allProjects.AddAll(projects.List())
-	allProjects.AddAll(goProjects.List())
+	for _, root := range config.Roots {
+		projects := filesystem.FindGitProjects(root)
+		allProjects.AddAll(projects.List())
+	}
 
 	os.Exit(run(allProjects, config.Query))
 }
