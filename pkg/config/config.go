@@ -7,10 +7,17 @@ import (
 )
 
 var (
+	Query string
+
 	home                = os.Getenv("HOME")
 	configDir           = home + "/.fuzzy-repo-finder"
 	selectedProjectFile = configDir + "/selected_project.txt"
 )
+
+func ParseArguments() {
+	args := os.Args[1:]
+	Query = strings.Join(args, "")
+}
 
 func PersistSelectedProject(project proj.Project) {
 	createConfigDir()
@@ -32,10 +39,4 @@ func createConfigDir() {
 	if err != nil {
 		panic(err)
 	}
-}
-
-func ParseArguments() string {
-	args := os.Args[1:]
-	arg := strings.Join(args, "")
-	return arg
 }

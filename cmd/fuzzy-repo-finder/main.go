@@ -14,7 +14,7 @@ var (
 )
 
 func main() {
-	query := config.ParseArguments()
+	config.ParseArguments()
 
 	filesystem := io.NewFilesystem(io.Disk{})
 	projects := filesystem.FindGitProjects(projectsRoot)
@@ -23,7 +23,7 @@ func main() {
 	allProjects.AddAll(projects.List())
 	allProjects.AddAll(goProjects.List())
 
-	os.Exit(run(allProjects, query))
+	os.Exit(run(allProjects, config.Query))
 }
 
 func run(projects proj.Projects, query string) int {
