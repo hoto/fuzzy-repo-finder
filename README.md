@@ -22,6 +22,16 @@ Linux:
 
     chmod +x ~/bin/fuzzy-repo-finder
 
+Create and configure a config file:
+
+    $ vim ~/.fuzzy-repo-finder/config.yml 
+    
+    ---
+    project_roots:
+      - '${HOME}/projects'
+      - '${HOME}/go/src'
+
+
 Add alias to `~/.bashrc` or `~/.zshrc`:  
 
     function go_to_project() {

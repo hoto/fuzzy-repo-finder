@@ -3,29 +3,26 @@ package config
 import (
 	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"os"
-	"strings"
 )
 
 var (
 	Query string
+	Roots []string
 
-	home = os.Getenv("HOME")
-
-	projectsRoot   = home + "/projects"
-	goProjectsRoot = home + "/go/src"
-	Roots          = []string{projectsRoot, goProjectsRoot}
-
-	configDir           = home + "/.fuzzy-repo-finder"
-	selectedProjectFile = configDir + "/selected_project.txt"
+	configDir           = os.Getenv("HOME") + "/.fuzzy-repo-finder"
+	configFile          = configDir + "/config.yml"
+	selectedProjectFile = configDir + "selected_project.txt"
 )
 
-func ParseArguments() {
-	args := os.Args[1:]
-	Query = strings.Join(args, "")
+func InitConfig() {
+	argsConfig := newArgsConfig()
+	ymlConfig := newYmlConfig()
+
+	Query = argsConfig.query
+	Roots = ymlConfig.ProjectRoots
 }
 
 func PersistSelectedProject(project proj.Project) {
-	createConfigDir()
 	file, err := os.Create(selectedProjectFile)
 	check(err)
 	defer file.Close()
@@ -34,13 +31,6 @@ func PersistSelectedProject(project proj.Project) {
 }
 
 func check(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func createConfigDir() {
-	err := os.MkdirAll(configDir, 0755)
 	if err != nil {
 		panic(err)
 	}

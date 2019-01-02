@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	config.ParseArguments()
+	config.InitConfig()
 	projects := readProjectsFromDisk()
 	os.Exit(loop(projects))
 }
