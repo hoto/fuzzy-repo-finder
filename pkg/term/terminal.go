@@ -47,7 +47,7 @@ func (Terminal) Close() {
 func (t *Terminal) Cycle() ExitCode {
 	t.filterProjects()
 	t.projectSelector.setProjects(t.filteredProjects)
-	t.projectSelector.bindSelectedProject()
+	t.projectSelector.bindIndexInRange()
 	t.display.positionCursor(t.projectNameField)
 	t.display.displayField(t.projectNameField)
 	t.display.displayProjects(&t.filteredProjects, t.projectSelector.index())
