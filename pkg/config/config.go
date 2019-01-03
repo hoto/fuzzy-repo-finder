@@ -11,7 +11,7 @@ var (
 
 	configDir           = os.Getenv("HOME") + "/.fuzzy-repo-finder"
 	configFile          = configDir + "/config.yml"
-	selectedProjectFile = configDir + "selected_project.txt"
+	selectedProjectFile = configDir + "/selected_project.txt"
 )
 
 func InitConfig() {
