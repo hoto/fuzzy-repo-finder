@@ -22,7 +22,7 @@ Linux:
 
     chmod +x ~/bin/fuzzy-repo-finder
 
-Create and configure a config file:
+Create a config file:
 
     $ vim ~/.fuzzy-repo-finder/config.yml 
     
@@ -32,7 +32,7 @@ Create and configure a config file:
       - '${HOME}/go/src'
 
 
-Add alias to `~/.bashrc` or `~/.zshrc`:  
+Add alias to your `~/.bashrc` or `~/.zshrc`:  
 
     function go_to_project() {
       local pattern=$1
@@ -42,8 +42,8 @@ Add alias to `~/.bashrc` or `~/.zshrc`:
     }
     alias g='go_to_project'
 
-Using a `cd` to change the directory is needed as child process can't change the working directory of a parent process.  
-You can chose any alias name you want. In my case I'm using `g`.  
+You can chose any alias name you want.   
+In my case I'm using `g`.  
 
 Use in terminal:
 
@@ -67,10 +67,9 @@ From directory structure:
       ├── project_1
       ├── project_2
       └── project_3
-
 ```
 
-Output would be:
+Unfiltered:
 
 ```
 Search: 
@@ -84,6 +83,15 @@ group_B
     project_3
 ```
 
+Filtered:
+
+```
+Search: t_1
+group_A
+    project_1
+group_B
+    project_1
+```
 
 ![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/001.png)  
 
@@ -118,62 +126,14 @@ Install to global golang bin directory:
 
     make install
     
-Dry run release:
+Dry run gorelease (auto releasing to github release page):
 
     make release_dry_run
 
 ### TODO:
-* Stop walking directories tree when a match is find (optimization)
-* Setup brew,fedora,debian,ubuntu,arch,packman repo
-* Make $HOME a default project root if not provided
-* Query projects by group
-* Add a gif as a demo on top of screenshots
-* Read config file from `~/.fuzzy-repo-finder/config.yml`
+* Fix order when scrolling through projects
 * Pass flags which can override `config.yml`
-* Save found repositories in `~/.fuzzy-repo-finder/repositories_statistics.yml`
-* Sort repos by usage on/off switch
-* Show dirty status of a repositories using `*`
-* How I want the presentation to look like:
-
-```
-Search: 
-mango
-    prices *                                 (116)
-    purchase-notifications                   (29)
-hoto
-    home *                                   (150)
-    home-private                             (81)
-    jenkinsfile-examples *                   (49)
-    jenkinsfile-loader                       (48)
-    ansible-home-fedora                      (17)
-    jenkins-shared-library *                 (17)
-    ansible-sointeractive                    (16)
-    deja-vu-sans-mono-font                   (15)
-    demo-ansible-and-docker-swarm-comparison (15)
-    demo-ansible-galaxy                      (12)
-    demo-ansible-role-nginx                  (10)
-    docker-presentation                      (9)
-    flake8                                   (4)
-    fuzzy-project-finder                     (1)
-    git-branch-ps1                              
-    hello-world                                 
-    micro-twitter                               
-    project-templates                           
-    vagrant-ubuntu-base                         
-    vagrant-ubuntu-workstation                  
-github
-    fedora-desktop-ansible-roles             (2)
-
-
-=========
-
-
-Search: pri
-mango
-    prices *               (116)
-    purchase-notifications (29)
-
-```
+* Make $HOME a default project root if not provided
 
 ---
 _Following_ [_Standard Go Project Layout_](https://github.com/golang-standards/project-layout)
