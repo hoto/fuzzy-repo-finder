@@ -6,7 +6,7 @@ import (
 )
 
 type argsConfig struct {
-	query string
+	projectNameFilter string
 }
 
 func newArgsConfig() argsConfig {
@@ -16,6 +16,6 @@ func newArgsConfig() argsConfig {
 func parseArguments() argsConfig {
 	argsConfig := argsConfig{}
 	args := os.Args[1:]
-	argsConfig.query = strings.Join(args, "")
+	argsConfig.projectNameFilter = strings.Join(args, "")
 	return argsConfig
 }

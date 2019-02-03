@@ -18,10 +18,10 @@ type Terminal struct {
 	projectSelector  *projectSelector
 }
 
-func NewTerminal(projects proj.Projects, query string) *Terminal {
+func NewTerminal(projects proj.Projects, projectNameFilter string) *Terminal {
 	return &Terminal{
 		display:          NewDisplay(),
-		projectNameField: NewField("Search: ", query),
+		projectNameField: NewField("Search: ", projectNameFilter),
 		allProjects:      projects,
 		filteredProjects: projects,
 		projectSelector:  NewProjectSelector(projects),

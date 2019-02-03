@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	Query string
-	Roots []string
+	ProjectNameFilter string
+	ProjectsRoots     []string
 
 	configDir           = os.Getenv("HOME") + "/.fuzzy-repo-finder"
 	configFile          = configDir + "/config.yml"
@@ -18,8 +18,8 @@ func InitConfig() {
 	argsConfig := newArgsConfig()
 	ymlConfig := newYmlConfig()
 
-	Query = argsConfig.query
-	Roots = ymlConfig.ProjectRoots
+	ProjectNameFilter = argsConfig.projectNameFilter
+	ProjectsRoots = ymlConfig.ProjectRoots
 }
 
 func PersistSelectedProject(project proj.Project) {

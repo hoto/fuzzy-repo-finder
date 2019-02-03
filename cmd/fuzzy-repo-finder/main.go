@@ -17,7 +17,7 @@ func main() {
 func readProjectsFromDisk() proj.Projects {
 	filesystem := io.NewFilesystem(io.Disk{})
 	allProjects := proj.NewProjects()
-	for _, root := range config.Roots {
+	for _, root := range config.ProjectsRoots {
 		projects := filesystem.FindGitProjects(root)
 		allProjects.AddAll(projects.List())
 	}
@@ -25,7 +25,7 @@ func readProjectsFromDisk() proj.Projects {
 }
 
 func loop(projects proj.Projects) int {
-	terminal := term.NewTerminal(projects, config.Query)
+	terminal := term.NewTerminal(projects, config.ProjectNameFilter)
 	terminal.Init()
 	defer terminal.Close()
 
