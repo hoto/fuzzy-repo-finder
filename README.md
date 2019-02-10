@@ -134,6 +134,7 @@ Dry run gorelease (auto releasing to github release page):
 * Fix order when scrolling through projects
 * Pass flags which can override `config.yml`
 * Make $HOME a default project root if not provided
+* Add --version info
 
 ---
 _Following_ [_Standard Go Project Layout_](https://github.com/golang-standards/project-layout)
