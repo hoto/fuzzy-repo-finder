@@ -38,12 +38,12 @@ func Test_return_matching_projects(t *testing.T) {
 
 	project1 := proj.Project{
 		Name:     "project1",
-		Group:    "",
+		Group:    "projects",
 		FullPath: "/home/user/projects/project1",
 	}
 	project2 := proj.Project{
 		Name:     "project2",
-		Group:    "",
+		Group:    "projects",
 		FullPath: "/home/user/projects/project2",
 	}
 	expectedProjects := []proj.Project{project1, project2}
