@@ -10,13 +10,6 @@ jobs:
       - checkout
       - run: make dependencies
       - run: make test
-  github-release:
-    docker:
-      - image: circleci/golang:1.11.3
-    working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
-    steps:
-      - checkout
-      - run: make github-release
   snap-build:
     docker:
       - image: cibuilds/snapcraft:stable
@@ -35,9 +28,9 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-            mkdir .snapcraft
-            echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-            snapcraft push *.snap --release edge
+          mkdir .snapcraft
+          echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
+          snapcraft push *.snap --release edge
   snap-release-stable:
     docker:
       - image: cibuilds/snapcraft:stable
@@ -45,21 +38,22 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-            mkdir .snapcraft
-            echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-            snapcraft push *.snap --release stable
+          mkdir .snapcraft
+          echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
+          snapcraft push *.snap --release stable
+  github-release:
+    docker:
+      - image: circleci/golang:1.11.3
+    working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
+    steps:
+      - checkout
+      - run: make github-release
 
 workflows:
   version: 2
-  release:
+  untagged-workflow:
     jobs:
       - test
-      - github-release:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-.*)*/
       - snap-build
       - snap-release-edge:
           requires:
@@ -67,6 +61,20 @@ workflows:
           filters:
             branches:
               only: master
+  tagged-workflow:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
+      - snap-build:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
       - snap-release-stable:
           requires:
             - snap-build
@@ -75,5 +83,9 @@ workflows:
               ignore: /.*/
             tags:
               only: /[0-9]+(\.[0-9]+)*(-.*)*/
-
-
+      - github-release:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
