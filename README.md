@@ -6,52 +6,41 @@
 
 Command line tool for navigating git repositories.
 
-WIP: This app is still in prototype phase.
-
 ### Installation
 
 Download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releases):
 
 Linux:
 
-    mkdir ~/bin
-    
     curl -L \
       "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.1.0/fuzzy-repo-finder_1.1.0_$(uname -s)_$(uname -m)" \
-       -o ~/bin/fuzzy-repo-finder
+       -o /usr/local/bin/fuzzy-repo-finder
 
-    chmod +x ~/bin/fuzzy-repo-finder
-
-Create a config file:
-
-    $ vim ~/.fuzzy-repo-finder/config.yml 
-    
-    ---
-    project_roots:
-      - '${HOME}/projects'
-      - '${HOME}/go/src'
+    chmod +x /usr/local/bin/fuzzy-repo-finder
 
 
-Add alias to your `~/.bashrc` or `~/.zshrc`:  
+Add to your `~/.bashrc` or `~/.zshrc` or `~/.profile`:  
 
     function go_to_project() {
-      local pattern=$1
-      ~/bin/fuzzy-repo-finder ${pattern}
-      local selectedProjectPath="$(cat ~/.fuzzy-repo-finder/selected_project.txt)"
-      cd "${selectedProjectPath}"
+      cd $(fuzzy-repo-finder --projectRoots "${HOME}/projects,${HOME}/go/src" $@)
     }
     alias g='go_to_project'
 
-You can chose any alias name you want.   
-In my case I'm using `g`.  
-
-Use in terminal:
-
-    $ g myprojectname
-
-Or without arguments:
+In terminal:
 
     $ g
+    
+Find projects by partial name:
+
+    $ g myprojectname
+    
+Debug:
+  
+    $ fuzzy-repo-finder --projectRoots "${HOME}/projects,${HOME}/go/src" --debug myprojectname
+    
+Help:
+  
+    $ fuzzy-repo-finder --help
 
 ### Demo
 
@@ -132,8 +121,6 @@ Dry run gorelease (auto releasing to github release page):
 
 ### TODO:
 * Fix order when scrolling through projects
-* Pass flags which can override `config.yml`
-* Make $HOME a default project root if not provided
 * Add --version info
 
 ---
