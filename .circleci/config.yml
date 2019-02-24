@@ -63,8 +63,8 @@ workflows:
             branches:
               only: master
       - snap-release-stable:
-          requires:
-            - snap-build
+#          requires:
+#            - snap-build
           filters:
             branches:
               ignore: /.*/
