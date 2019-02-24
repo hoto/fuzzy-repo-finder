@@ -73,7 +73,7 @@ func (t *Terminal) Cycle() ExitCode {
 			t.projectSelector.selectNextProject()
 		case termbox.KeyEnter:
 			selectedProject := t.filteredProjects.Get(t.projectSelector.selectedProjectIndex)
-			config.PersistSelectedProject(selectedProject)
+			config.SelectedProjectPath = selectedProject.FullPath
 			return NormalExit
 		case termbox.KeyCtrlC:
 			return AbnormalExit

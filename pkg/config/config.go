@@ -1,37 +1,40 @@
 package config
 
 import (
-	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
-	"os"
+	"flag"
+	"fmt"
+	. "github.com/logrusorgru/aurora"
+	"strings"
 )
 
 var (
-	ProjectNameFilter string
-	ProjectsRoots     []string
-
-	configDir           = os.Getenv("HOME") + "/.fuzzy-repo-finder"
-	configFile          = configDir + "/config.yml"
-	selectedProjectFile = configDir + "/selected_project.txt"
+	Debug               bool
+	ProjectsRoots       []string
+	ProjectNameFilter   string
+	SelectedProjectPath = ""
 )
 
-func InitConfig() {
-	argsConfig := newArgsConfig()
-	ymlConfig := newYmlConfig()
+func ParseArgsAndFlags() {
 
-	ProjectNameFilter = argsConfig.projectNameFilter
-	ProjectsRoots = ymlConfig.ProjectRoots
-}
+	flag.BoolVar(&Debug, "debug", false, "Show verbose debug information")
+	//version := flag.Bool("version", false, "Show version")
+	projectRoots := flag.String("projectRoots", "/default-projects-path", "Comma separated list of project roots directories")
+	flag.Parse()
 
-func PersistSelectedProject(project proj.Project) {
-	file, err := os.Create(selectedProjectFile)
-	check(err)
-	defer file.Close()
-	_, err = file.WriteString(project.FullPath)
-	check(err)
-}
+	ProjectNameFilter = strings.Join(flag.Args(), "")
+	ProjectsRoots = strings.Split(*projectRoots, ",")
 
-func check(err error) {
-	if err != nil {
-		panic(err)
+	if Debug {
+		fmt.Println("Flags:")
+		fmt.Printf("  projectRoots=%s\n", Cyan(*projectRoots))
+
+		fmt.Println()
+		fmt.Println("Args:")
+		fmt.Printf("  args=%s\n", Cyan(flag.Args()))
+
+		fmt.Println()
+		fmt.Println("Config:")
+		fmt.Printf("  ProjectRoots=%s\n", Cyan(ProjectsRoots))
+		fmt.Printf("  ProjectNameFilter=%s\n", Cyan(ProjectNameFilter))
 	}
 }
