@@ -47,12 +47,11 @@ jobs:
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
-      - run: echo hello
-        #      - run: make github-release
+      - run: make github-release
 
 workflows:
   version: 2
-  branch-only-workflow:
+  untagged-workflow:
     jobs:
       - test
       - snap-build
@@ -62,7 +61,7 @@ workflows:
           filters:
             branches:
               only: master
-  tag-only-workflow:
+  tagged-workflow:
     jobs:
       - test:
           filters:
