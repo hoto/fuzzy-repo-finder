@@ -15,6 +15,8 @@ Use snap:
     
 Or download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releases):
 
+Linux and mac:
+
     curl -L \
       "https://github.com/hoto/fuzzy-repo-finder/releases/download/2.0.0/fuzzy-repo-finder_2.0.0_$(uname -s)_$(uname -m)" \
        -o /usr/local/bin/fuzzy-repo-finder
