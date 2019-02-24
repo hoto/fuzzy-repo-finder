@@ -64,9 +64,9 @@ workflows:
       - snap-release-edge:
           requires:
             - snap-build
-#          filters:
-#            branches:
-#              only: master
+          filters:
+            branches:
+              only: master
       - snap-release-stable:
           requires:
             - snap-build
