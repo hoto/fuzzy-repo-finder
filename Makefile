@@ -2,8 +2,7 @@ all: clean build test
 
 clean:
 	go clean
-	rm -rf bin/
-	rm -rf dist/
+	rm -rf bin/ dist/ *.snap
 
 dependencies:
 	go get -v -t -d ./...
@@ -22,8 +21,21 @@ run: clean build
 install: clean build
 	go install -v ./...
 
-release: dependencies
+gituh-release: dependencies
 	curl -sL https://git.io/goreleaser | bash
 
-release_dry_run: dependencies
+github-release-dry-run: dependencies
 	goreleaser release --skip-publish --snapshot --rm-dist
+
+snap-build:
+	snapcraft
+
+snap-list:
+	unsquashfs -l *.snap
+	snap list
+
+snap-install: 
+	sudo snap install --dangerous *.snap
+
+snap-remove:
+	sudo snap remove fuzzy-repo-finder

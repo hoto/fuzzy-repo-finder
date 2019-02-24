@@ -1,0 +1,20 @@
+---
+name: fuzzy-repo-finder
+version: git
+summary: Command line tool for navigating git repositories.
+description: Command line tool for navigating git repositories.
+
+confinement: strict
+base: core18
+
+parts:
+  fuzzy-repo-finder:
+    plugin: go
+    go-importpath: github.com/hoto/fuzzy-repo-finder
+    source: .
+    source-type: git
+
+apps:
+  fuzzy-repo-finder:
+    command: bin/fuzzy-repo-finder
+    plugs: [home]
