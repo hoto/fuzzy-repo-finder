@@ -21,7 +21,7 @@ run: clean build
 install: clean build
 	go install -v ./...
 
-gituh-release: dependencies
+github-release: dependencies
 	curl -sL https://git.io/goreleaser | bash
 
 github-release-dry-run: dependencies
