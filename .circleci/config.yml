@@ -64,16 +64,16 @@ workflows:
       - snap-release-edge:
           requires:
             - snap-build
-          filters:
-            branches:
-              only: master
+#          filters:
+#            branches:
+#              only: master
       - snap-release-stable:
           requires:
             - snap-build
-#          filters:
-#            branches:
-#              ignore: /.*/
-#            tags:
-#              only: /[0-9]+(\.[0-9]+)*(-.*)*/
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
 
 

@@ -1,3 +1,4 @@
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/fuzzy-repo-finder)
 [![CircleCI](https://circleci.com/gh/hoto/fuzzy-repo-finder/tree/master.svg?style=svg)](https://circleci.com/gh/hoto/fuzzy-repo-finder/tree/master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hoto/fuzzy-repo-finder)](https://goreportcard.com/report/github.com/hoto/fuzzy-repo-finder)
 [![Maintainability](https://api.codeclimate.com/v1/badges/27f61a82b9a5589f1a07/maintainability)](https://codeclimate.com/github/hoto/fuzzy-repo-finder/maintainability)
@@ -8,9 +9,11 @@ Command line tool for navigating git repositories.
 
 ### Installation
 
-Download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releases):
+Use snap:
 
-Linux:
+    sudo snap install fuzzy-repo-finder
+    
+Or download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releases):
 
     curl -L \
       "https://github.com/hoto/fuzzy-repo-finder/releases/download/1.1.0/fuzzy-repo-finder_1.1.0_$(uname -s)_$(uname -m)" \
@@ -18,6 +21,7 @@ Linux:
 
     chmod +x /usr/local/bin/fuzzy-repo-finder
 
+### Configuration and running
 
 Add to your `~/.bashrc` or `~/.zshrc` or `~/.profile`:  
 
@@ -114,10 +118,6 @@ Run with arguments:
 Install to global golang bin directory:
 
     make install
-    
-Dry run gorelease (auto releasing to github release page):
-
-    make release_dry_run
 
 ### TODO:
 * Fix order when scrolling through projects
