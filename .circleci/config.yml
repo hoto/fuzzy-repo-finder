@@ -16,7 +16,8 @@ jobs:
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
-      - run: make github-release
+      - run: echo hello
+#      - run: make github-release
   snap-build:
     docker:
       - image: cibuilds/snapcraft:stable
@@ -35,9 +36,9 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-            mkdir .snapcraft
-            echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-            snapcraft push *.snap --release edge
+          mkdir .snapcraft
+          echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
+          snapcraft push *.snap --release edge
   snap-release-stable:
     docker:
       - image: cibuilds/snapcraft:stable
@@ -45,21 +46,15 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-            mkdir .snapcraft
-            echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
-            snapcraft push *.snap --release stable
+          mkdir .snapcraft
+          echo $SNAPCRAFT_LOGIN_FILE | base64 --decode --ignore-garbage > .snapcraft/snapcraft.cfg
+          snapcraft push *.snap --release stable
 
 workflows:
   version: 2
   release:
     jobs:
       - test
-      - github-release:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-.*)*/
       - snap-build
       - snap-release-edge:
           requires:
@@ -70,6 +65,12 @@ workflows:
       - snap-release-stable:
           requires:
             - snap-build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
+      - github-release:
           filters:
             branches:
               ignore: /.*/
