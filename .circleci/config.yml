@@ -62,25 +62,25 @@ workflows:
           filters:
             branches:
               only: master
-  tagged-workflow:
-    jobs:
-      - test:
-        filters:
-          tags:
-            only: /[0-9]+(\.[0-9]+)*(-.*)*/
-      - snap-build:
-        filters:
-          tags:
-            only: /[0-9]+(\.[0-9]+)*(-.*)*/
-      - snap-release-stable:
-          requires:
-            - snap-build
-          filters:
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-.*)*/
-      - github-release:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /[0-9]+(\.[0-9]+)*(-.*)*/
+#  tagged-workflow:
+#    jobs:
+#      - test:
+#        filters:
+#          tags:
+#            only: /[0-9]+(\.[0-9]+)*(-.*)*/
+#      - snap-build:
+#        filters:
+#          tags:
+#            only: /[0-9]+(\.[0-9]+)*(-.*)*/
+#      - snap-release-stable:
+#          requires:
+#            - snap-build
+#          filters:
+#            tags:
+#              only: /[0-9]+(\.[0-9]+)*(-.*)*/
+#      - github-release:
+#          filters:
+#            branches:
+#              ignore: /.*/
+#            tags:
+#              only: /[0-9]+(\.[0-9]+)*(-.*)*/
