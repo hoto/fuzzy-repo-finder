@@ -65,17 +65,17 @@ workflows:
   tagged-workflow:
     jobs:
       - test:
-        filters:
-          branches:
-            ignore: /.*/
-          tags:
-            only: /[0-9]+(\.[0-9]+)*(-.*)*/
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
       - snap-build:
-        filters:
-          branches:
-            ignore: /.*/
-          tags:
-            only: /[0-9]+(\.[0-9]+)*(-.*)*/
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*(-.*)*/
       - snap-release-stable:
           requires:
             - snap-build
