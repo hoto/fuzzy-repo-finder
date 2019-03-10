@@ -19,22 +19,45 @@ var (
 )
 
 func ParseArgsAndFlags() {
+	flag.Usage = overrideUsage()
+
 	flag.BoolVar(&Debug, "debug", false, "Show verbose debug information")
-	version := flag.Bool("version", false, "Show version")
-	projectRoots := flag.String("projectRoots", "/projects", "Comma separated list of project roots directories")
+	showVersion := flag.Bool("version", false, "Show version")
+	projectRoots := flag.String("projectRoots", "",
+		"Comma separated list of project roots directories")
+
 	flag.Parse()
 
 	ProjectNameFilter = strings.Join(flag.Args(), "")
 	ProjectsRoots = strings.Split(*projectRoots, ",")
 
-	if *version {
+	if *showVersion {
 		fmt.Printf("fuzzy-repo-finder version %s, commit %s, build %s\n",
 			Version, ShortCommit, BuildDate)
 		os.Exit(0)
 	}
 
+	if *projectRoots == "" {
+		flag.Usage()
+		os.Exit(1)
+	}
+
 	if Debug {
 		debugLog(projectRoots)
+	}
+}
+
+func overrideUsage() func() {
+	return func() {
+		_, _ = fmt.Fprintf(
+			flag.CommandLine.Output(),
+			"Usage:"+
+				"\n\t"+
+				"cd $(fuzzy-repo-finder --projectRoots=\"${HOME}/projects\" [flags] [QUERY])"+
+				"\n\n"+
+				"Flags:"+
+				"\n")
+		flag.PrintDefaults()
 	}
 }
 
