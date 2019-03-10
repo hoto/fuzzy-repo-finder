@@ -10,6 +10,8 @@ import (
 
 var (
 	Version             string
+	ShortCommit         string
+	BuildDate           string
 	Debug               bool
 	ProjectsRoots       []string
 	ProjectNameFilter   string
@@ -26,7 +28,8 @@ func ParseArgsAndFlags() {
 	ProjectsRoots = strings.Split(*projectRoots, ",")
 
 	if *version {
-		fmt.Printf("version=%s\n", Version)
+		fmt.Printf("fuzzy-repo-finder version %s, commit %s, build %s\n",
+			Version, ShortCommit, BuildDate)
 		os.Exit(0)
 	}
 
