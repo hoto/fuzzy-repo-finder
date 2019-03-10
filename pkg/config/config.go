@@ -21,7 +21,7 @@ var (
 func ParseArgsAndFlags() {
 	flag.BoolVar(&Debug, "debug", false, "Show verbose debug information")
 	version := flag.Bool("version", false, "Show version")
-	projectRoots := flag.String("projectRoots", "/default-projects-path", "Comma separated list of project roots directories")
+	projectRoots := flag.String("projectRoots", "/projects", "Comma separated list of project roots directories")
 	flag.Parse()
 
 	ProjectNameFilter = strings.Join(flag.Args(), "")
