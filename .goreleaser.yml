@@ -1,8 +1,10 @@
 ---
 builds:
-  - env:
+  - main: ./cmd/fuzzy-repo-finder/main.go
+    ldflags:
+      - '-s -w -X github.com/hoto/fuzzy-repo-finder/pkg/config.Version={{.Version}} -X github.com/hoto/fuzzy-repo-finder/pkg/config.ShortCommit={{.ShortCommit}} -X github.com/hoto/fuzzy-repo-finder/pkg/config.BuildDate={{.Date}}'
+    env:
       - CGO_ENABLED=0
-    main: ./cmd/fuzzy-repo-finder/main.go
 archive:
   format: binary
   replacements:

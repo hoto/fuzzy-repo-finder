@@ -123,7 +123,6 @@ Install to global golang bin directory:
 
 ### TODO:
 * Fix order when scrolling through projects
-* Add --version info
 
 ---
 _Following_ [_Standard Go Project Layout_](https://github.com/golang-standards/project-layout)
