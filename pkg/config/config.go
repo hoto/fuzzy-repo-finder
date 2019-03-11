@@ -50,7 +50,7 @@ func ParseArgsAndFlags() {
 func overrideUsage() func() {
 	return func() {
 		_, _ = fmt.Fprintf(
-			flag.CommandLine.Output(),
+			os.Stdout,
 			"Usage:"+
 				"\n\t"+
 				"cd $(fuzzy-repo-finder --projectRoots=\"${HOME}/projects\" [flags] [QUERY])"+

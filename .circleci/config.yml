@@ -4,7 +4,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/golang:1.11.3
+      - image: circleci/golang:1.11.5
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
@@ -43,7 +43,7 @@ jobs:
           snapcraft push *.snap --release stable
   github-release:
     docker:
-      - image: circleci/golang:1.11.3
+      - image: circleci/golang:1.11.5
     working_directory: /go/src/github.com/hoto/fuzzy-repo-finder
     steps:
       - checkout
