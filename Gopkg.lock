@@ -2,14 +2,6 @@
 
 
 [[projects]]
-  digest = "1:17131c6158c724a12a6249bf4e28c239357695cb15ffccb6bc3f246d95e04f09"
-  name = "bou.ke/monkey"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "bdf6dea004c6fd1cdf4b25da8ad45a606c09409a"
-  version = "v1.0.1"
-
-[[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -80,7 +72,6 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "bou.ke/monkey",
     "github.com/logrusorgru/aurora",
     "github.com/nsf/termbox-go",
     "github.com/sahilm/fuzzy",
