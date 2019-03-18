@@ -84,7 +84,7 @@ Filtered:
         project_1
     group_B
         project_1
-    groupB/group_C
+    group_B/group_C
         project_1
 
 ![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/001.png)  
