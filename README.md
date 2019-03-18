@@ -52,41 +52,40 @@ Help:
 
 From directory structure:
 
-```
-~/projects
-  ├── group_A
-  │   ├── project_1
-  │   ├── project_2
-  │   └── project_3
-  └── group_B
-      ├── project_1
-      ├── project_2
-      └── project_3
-```
+    ~/projects
+      ├── group_A
+      │   ├── project_1
+      │   ├── project_2
+      │   └── project_3
+      └── group_B
+          ├── project_1
+          ├── project_2
+          └── group_C
+              └── project_1
 
 Unfiltered:
 
-```
-Search: 
-group_A
-    project_1
-    project_2
-    project_3
-group_B
-    project_1
-    project_2
-    project_3
-```
+    Search: 
+    group_A
+        project_1
+        project_2
+        project_3
+    group_B
+        project_1
+        project_2
+        project_3
+    group_B/group_C
+        project_1
 
 Filtered:
 
-```
-Search: t_1
-group_A
-    project_1
-group_B
-    project_1
-```
+    Search: pr1
+    group_A
+        project_1
+    group_B
+        project_1
+    groupB/group_C
+        project_1
 
 ![demo](https://github.com/hoto/fuzzy-repo-finder/wiki/images/001.png)  
 
