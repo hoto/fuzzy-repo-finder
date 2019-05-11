@@ -23,7 +23,7 @@ func scan(dir string, needle string, matchingPaths *[]string) {
 	haystack, err := ioutil.ReadDir(dir)
 	check(err)
 	if containsNeedle(haystack, needle) {
-		gitPath := dir + "/.git" // TODO get rid of .git
+		gitPath := dir + "/.git" // TODO return just the dir without the .git
 		*matchingPaths = append(*matchingPaths, gitPath)
 		return
 	}
