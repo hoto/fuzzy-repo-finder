@@ -1,9 +1,10 @@
 package io
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
 )
 
 type IDisk interface {
@@ -12,25 +13,39 @@ type IDisk interface {
 
 type Disk struct{}
 
-func (Disk) FindDirs(root string, dirName string) []string {
-	var matchingDirs []string
-	appendMatchingDirs := func(path string, file os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if matchesDirName(file, dirName) {
-			matchingDirs = append(matchingDirs, path)
-			return filepath.SkipDir
-		}
-		return nil
+func (Disk) FindDirs(root string, needle string) []string {
+	matchingPaths := make([]string, 0)
+	scan(root, needle, &matchingPaths)
+	return matchingPaths
+}
+
+func scan(dir string, needle string, matchingPaths *[]string) {
+	haystack, err := ioutil.ReadDir(dir)
+	check(err)
+	if containsNeedle(haystack, needle) {
+		gitPath := dir + "/.git" // TODO return just the dir without the .git
+		*matchingPaths = append(*matchingPaths, gitPath)
+		return
 	}
-	err := filepath.Walk(root, appendMatchingDirs)
+	for _, file := range haystack {
+		if file.IsDir() {
+			dir := fmt.Sprintf("%s/%s", dir, file.Name())
+			scan(dir, needle, matchingPaths)
+		}
+	}
+}
+
+func check(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return matchingDirs
 }
 
-func matchesDirName(file os.FileInfo, dirName string) bool {
-	return file.IsDir() && file.Name() == dirName
+func containsNeedle(files []os.FileInfo, needle string) bool {
+	for _, file := range files {
+		if file.Name() == needle {
+			return true
+		}
+	}
+	return false
 }
