@@ -1,4 +1,4 @@
-package io
+package traverse
 
 import (
 	"fmt"
@@ -7,13 +7,16 @@ import (
 	"os"
 )
 
-type IDisk interface {
-	FindDirs(root string, dirName string) []string
+func main() {
+	root := "/home/andrzej.rehmann/projects"
+	//root := "/home/andrzej.rehmann/go/src"
+	matchingPaths := FindDir(root, ".git")
+	for i, e := range matchingPaths {
+		fmt.Printf("%d %s\n", i, e)
+	}
 }
 
-type Disk struct{}
-
-func (Disk) FindDirs(root string, needle string) []string {
+func FindDir(root string, needle string) []string {
 	matchingPaths := make([]string, 0)
 	scan(root, needle, &matchingPaths)
 	return matchingPaths
@@ -23,8 +26,7 @@ func scan(dir string, needle string, matchingPaths *[]string) {
 	haystack, err := ioutil.ReadDir(dir)
 	check(err)
 	if containsNeedle(haystack, needle) {
-		gitPath := dir + "/.git" // TODO get rid of .git
-		*matchingPaths = append(*matchingPaths, gitPath)
+		*matchingPaths = append(*matchingPaths, dir)
 		return
 	}
 	for _, file := range haystack {
