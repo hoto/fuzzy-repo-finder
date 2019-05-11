@@ -18,7 +18,7 @@ Or download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/rel
 Linux and mac:
 
     sudo curl -L \
-      "https://github.com/hoto/fuzzy-repo-finder/releases/download/2.1.0/fuzzy-repo-finder_2.1.0_$(uname -s)_$(uname -m)" \
+      "https://github.com/hoto/fuzzy-repo-finder/releases/download/2.2.0/fuzzy-repo-finder_2.2.0_$(uname -s)_$(uname -m)" \
        -o /usr/local/bin/fuzzy-repo-finder
 
     sudo chmod +x /usr/local/bin/fuzzy-repo-finder
