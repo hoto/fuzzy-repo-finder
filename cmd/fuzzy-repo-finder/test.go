@@ -8,20 +8,21 @@ import (
 
 func main() {
 	//dir := "/home/andrzej.rehmann/projects"
-	dir := "/home/andrzej.rehmann/go"
-	scan(dir)
+	root := "/home/andrzej.rehmann/go"
+	scan(root, ".git")
 }
 
-func scan(dir string) {
-	files, err := ioutil.ReadDir(dir)
+func scan(root string, needle string) {
+	haystack, err := ioutil.ReadDir(root)
 	check(err)
-	if isAGitRepo(files) {
+	if containsNeedle(haystack, needle) {
 		return
 	}
-	for _, file := range files {
-		fmt.Printf("%s/%s\n", dir, file.Name())
+	for _, file := range haystack {
+		fmt.Printf("%s/%s\n", root, file.Name())
 		if file.IsDir() {
-			scan(fmt.Sprintf("%s/%s", dir, file.Name()))
+			dir := fmt.Sprintf("%s/%s", root, file.Name())
+			scan(dir, needle)
 		}
 	}
 }
@@ -32,9 +33,9 @@ func check(err error) {
 	}
 }
 
-func isAGitRepo(files []os.FileInfo) bool {
+func containsNeedle(files []os.FileInfo, needle string) bool {
 	for _, file := range files {
-		if file.Name() == ".git" {
+		if file.Name() == needle {
 			return true
 		}
 	}
