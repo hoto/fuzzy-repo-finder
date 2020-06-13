@@ -1,29 +1,33 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](/LICENSE)
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/fuzzy-repo-finder)
 [![Build status](https://github.com/hoto/fuzzy-repo-finder/workflows/Build%20and%20test/badge.svg?branch=master)](https://github.com/hoto/fuzzy-repo-finder/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/hoto/fuzzy-repo-finder)](https://goreportcard.com/report/github.com/hoto/fuzzy-repo-finder)
-[![Maintainability](https://api.codeclimate.com/v1/badges/27f61a82b9a5589f1a07/maintainability)](https://codeclimate.com/github/hoto/fuzzy-repo-finder/maintainability)
 [![Release](https://img.shields.io/github/release/hoto/fuzzy-repo-finder.svg?style=flat-square)](https://github.com/hoto/fuzzy-repo-finder/releases/latest)
 [![Powered By: goreleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser/goreleaser)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hoto/fuzzy-repo-finder)](https://goreportcard.com/report/github.com/hoto/fuzzy-repo-finder)
+[![Maintainability](https://api.codeclimate.com/v1/badges/27f61a82b9a5589f1a07/maintainability)](https://codeclimate.com/github/hoto/fuzzy-repo-finder/maintainability)
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/fuzzy-repo-finder)
 # Fuzzy Repo Finder
 
 Command line tool for navigating git repositories.
 
 ### Installation
 
-Use snap:
+Mac:
 
-    sudo snap install fuzzy-repo-finder
-    
-Or download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releases):
+    brew install hoto/repo/fuzzy-repo-finder
 
-Linux and mac:
+Mac or Linux:
 
     sudo curl -L \
-      "https://github.com/hoto/fuzzy-repo-finder/releases/download/2.2.0/fuzzy-repo-finder_2.2.0_$(uname -s)_$(uname -m)" \
+      "https://github.com/hoto/fuzzy-repo-finder/releases/download/2.2.1/fuzzy-repo-finder_2.2.1_$(uname -s)_$(uname -m)" \
        -o /usr/local/bin/fuzzy-repo-finder
 
     sudo chmod +x /usr/local/bin/fuzzy-repo-finder
+    
+Snap:
+
+    sudo snap install fuzzy-repo-finder
+    
+Or manually download binary from [releases](https://github.com/hoto/fuzzy-repo-finder/releases).
 
 ### Configuration and running
 
