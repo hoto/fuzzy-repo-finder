@@ -34,7 +34,7 @@ snap-list:
 	unsquashfs -l *.snap
 	snap list
 
-snap-install: 
+snap-install:
 	sudo snap install --dangerous *.snap
 
 snap-remove:

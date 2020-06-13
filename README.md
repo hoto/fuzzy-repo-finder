@@ -114,7 +114,7 @@ Build, test and run:
 
 Run with arguments:
 
-    make args="myprojectname" run
+    make run arg="--projectRoots=${HOME}/projects project_to_look_for"
 
 Install to global golang bin directory:
 
