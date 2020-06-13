@@ -4,7 +4,7 @@
 [![Powered By: goreleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser/goreleaser)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hoto/fuzzy-repo-finder)](https://goreportcard.com/report/github.com/hoto/fuzzy-repo-finder)
 [![Maintainability](https://api.codeclimate.com/v1/badges/27f61a82b9a5589f1a07/maintainability)](https://codeclimate.com/github/hoto/fuzzy-repo-finder/maintainability)
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/fuzzy-repo-finder)
+[![fuzzy-repo-finder](https://snapcraft.io//fuzzy-repo-finder/badge.svg)](https://snapcraft.io/fuzzy-repo-finder)
 # Fuzzy Repo Finder
 
 Command line tool for navigating git repositories.
