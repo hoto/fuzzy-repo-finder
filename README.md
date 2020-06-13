@@ -1,5 +1,5 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](/LICENSE)
-[![Build status](https://github.com/hoto/fuzzy-repo-finder/workflows/Build%20and%20test/badge.svg?branch=master)](https://github.com/hoto/fuzzy-repo-finder/actions)
+[![Build status](https://github.com/hoto/fuzzy-repo-finder/workflows/Test/badge.svg?branch=master)](https://github.com/hoto/fuzzy-repo-finder/actions)
 [![Release](https://img.shields.io/github/release/hoto/fuzzy-repo-finder.svg?style=flat-square)](https://github.com/hoto/fuzzy-repo-finder/releases/latest)
 [![Powered By: goreleaser](https://img.shields.io/badge/powered%20by-goreleaser-green.svg?style=flat-square)](https://github.com/goreleaser/goreleaser)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hoto/fuzzy-repo-finder)](https://goreportcard.com/report/github.com/hoto/fuzzy-repo-finder)

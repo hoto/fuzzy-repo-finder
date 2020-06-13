@@ -26,5 +26,5 @@ jobs:
       - name: Test
         run: make test
 
-      - name: Dry run releasign to GitHub
-        run: make github-release-dry-run
+      - name: Dry run goreleaser
+        run: make goreleaser-dry-run

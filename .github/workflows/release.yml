@@ -19,10 +19,10 @@ jobs:
           go-version: 1.14
         id: go
 
-      - name: Unshallow
+      - name: Unshallow git repo
         run: git fetch --prune --unshallow
 
-      - name: Release to GitHub
+      - name: Run goreleaser
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_GITHUB_TOKEN }}
-        run: make github-release
+        run: make goreleaser-release
