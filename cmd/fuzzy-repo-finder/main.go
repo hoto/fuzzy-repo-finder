@@ -6,7 +6,7 @@ import (
 	"github.com/hoto/fuzzy-repo-finder/pkg/io"
 	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"github.com/hoto/fuzzy-repo-finder/pkg/term"
-	. "github.com/logrusorgru/aurora"
+	"github.com/logrusorgru/aurora"
 	"os"
 )
 
@@ -33,7 +33,7 @@ func readProjectsFromDisk() proj.Projects {
 func debugLog(projects proj.Projects) {
 	fmt.Println()
 	fmt.Println("Projects:")
-	fmt.Printf("  projects=%s\n", Cyan(projects))
+	fmt.Printf("  projects=%s\n", aurora.Cyan(projects))
 }
 
 func loop(projects proj.Projects) int {

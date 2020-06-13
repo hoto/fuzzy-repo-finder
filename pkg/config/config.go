@@ -3,7 +3,7 @@ package config
 import (
 	"flag"
 	"fmt"
-	. "github.com/logrusorgru/aurora"
+	"github.com/logrusorgru/aurora"
 	"os"
 	"strings"
 )
@@ -63,12 +63,12 @@ func overrideUsage() func() {
 
 func debugLog(projectRoots *string) {
 	fmt.Println("Flags:")
-	fmt.Printf("  projectRoots=%s\n", Cyan(*projectRoots))
+	fmt.Printf("  projectRoots=%s\n", aurora.Cyan(*projectRoots))
 	fmt.Println()
 	fmt.Println("Args:")
-	fmt.Printf("  args=%s\n", Cyan(flag.Args()))
+	fmt.Printf("  args=%s\n", aurora.Cyan(flag.Args()))
 	fmt.Println()
 	fmt.Println("Config:")
-	fmt.Printf("  ProjectRoots=%s\n", Cyan(ProjectsRoots))
-	fmt.Printf("  ProjectNameFilter=%s\n", Cyan(ProjectNameFilter))
+	fmt.Printf("  ProjectRoots=%s\n", aurora.Cyan(ProjectsRoots))
+	fmt.Printf("  ProjectNameFilter=%s\n", aurora.Cyan(ProjectNameFilter))
 }
