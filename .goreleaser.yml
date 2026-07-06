@@ -1,42 +1,54 @@
 ---
+version: 2
+
 builds:
-  - main: ./cmd/fuzzy-repo-finder/main.go
+  - main: ./cmd/fuzzy-repo-finder
     ldflags:
       - '-s -w -X github.com/hoto/fuzzy-repo-finder/pkg/config.Version={{.Version}} -X github.com/hoto/fuzzy-repo-finder/pkg/config.ShortCommit={{.ShortCommit}} -X github.com/hoto/fuzzy-repo-finder/pkg/config.BuildDate={{.Date}}'
     env:
       - CGO_ENABLED=0
-    ignore:
-      - goos: darwin
-        goarch: 386
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+
 archives:
-  - format: binary
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      386: i386
-      amd64: x86_64
+  - id: binary
+    formats: [binary]
+    name_template: >-
+      {{ .Binary }}_{{ .Version }}_{{ title .Os }}_{{ if eq .Arch "amd64" }}x86_64{{ else }}{{ .Arch }}{{ end }}
   - id: homebrew
-    name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      amd64: x86_64
-    format: zip
+    formats: [zip]
+    name_template: >-
+      {{ .Binary }}_{{ title .Os }}_{{ if eq .Arch "amd64" }}x86_64{{ else }}{{ .Arch }}{{ end }}
+
 checksum:
   name_template: 'checksums.txt'
+
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: '{{ .Tag }}-next'
+
 release:
   prerelease: auto
+
 changelog:
   sort: asc
-brews:
-  - github:
+
+homebrew_casks:
+  - ids:
+      - homebrew
+    repository:
       owner: hoto
       name: homebrew-repo
-    folder: Formula
-    homepage:  https://github.com/hoto/fuzzy-repo-finder
+    directory: Casks
+    homepage: https://github.com/hoto/fuzzy-repo-finder
     description: Navigate locally cloned repos.
-    test: |
-      system "#{bin}/fuzzy-repo-finder--version"
-
+    # binaries are not signed/notarized, so drop the quarantine attribute on install
+    hooks:
+      post:
+        install: |
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/fuzzy-repo-finder"]
+          end

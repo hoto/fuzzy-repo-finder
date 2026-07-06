@@ -61,7 +61,7 @@ func Test_return_all_projects_when_all_are_matching(t *testing.T) {
 
 	filteredProjects := FuzzyMatch("PROJECT_", projects)
 
-	assert.EqualValues(t, []Project{project4, project3, project2, project1}, filteredProjects.List())
+	assert.EqualValues(t, []Project{project1, project2, project3, project4}, filteredProjects.List())
 }
 
 func Test_return_multiple_matches(t *testing.T) {
@@ -74,7 +74,7 @@ func Test_return_multiple_matches(t *testing.T) {
 
 	filteredProjects := FuzzyMatch("B_PROJECT", projects)
 
-	assert.EqualValues(t, []Project{project4, project3}, filteredProjects.List())
+	assert.EqualValues(t, []Project{project3, project4}, filteredProjects.List())
 }
 
 func Test_sort_using_a_matching_score(t *testing.T) {

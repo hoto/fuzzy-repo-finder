@@ -31,8 +31,8 @@ func NewTerminal(projects proj.Projects, projectNameFilter string) *Terminal {
 // Initializes terminal. This function must be called before any other functions.
 // Terminal must be closed using Close() function before exiting the application.
 //
-//      terminal := terminal.Init()
-//      defer terminal.Close()
+//	terminal := terminal.Init()
+//	defer terminal.Close()
 func (Terminal) Init() {
 	err := termbox.Init()
 	if err != nil {
