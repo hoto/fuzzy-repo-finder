@@ -2,7 +2,6 @@ package io
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 )
@@ -20,7 +19,7 @@ func (Disk) FindDirs(root string, needle string) []string {
 }
 
 func scan(dir string, needle string, matchingPaths *[]string) {
-	haystack, err := ioutil.ReadDir(dir)
+	haystack, err := os.ReadDir(dir)
 	check(err)
 	if containsNeedle(haystack, needle) {
 		gitPath := dir + "/.git" // TODO return just the dir without the .git
@@ -41,7 +40,7 @@ func check(err error) {
 	}
 }
 
-func containsNeedle(files []os.FileInfo, needle string) bool {
+func containsNeedle(files []os.DirEntry, needle string) bool {
 	for _, file := range files {
 		if file.Name() == needle {
 			return true

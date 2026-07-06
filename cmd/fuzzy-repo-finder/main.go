@@ -6,7 +6,7 @@ import (
 	"github.com/hoto/fuzzy-repo-finder/pkg/io"
 	"github.com/hoto/fuzzy-repo-finder/pkg/proj"
 	"github.com/hoto/fuzzy-repo-finder/pkg/term"
-	"github.com/logrusorgru/aurora"
+	"github.com/logrusorgru/aurora/v4"
 	"os"
 )
 
