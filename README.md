@@ -103,10 +103,6 @@ Filtered:
 
 ### Development
 
-Get:
-
-    go get github.com/hoto/fuzzy-repo-finder/cmd/fuzzy-repo-finder/
-
 Download dependencies:
 
     make dependencies
@@ -125,6 +121,20 @@ Run with arguments:
 Install to global golang bin directory:
 
     make install
+
+###
+
+Add and push new tag on `master` which triggers a release GH action:
+
+    git tag 0.0.0
+    git push --tags
+
+Update GORELEASER_GITHUB_TOKEN after it expires:
+GORELEASER_GITHUB_TOKEN
+
+https://goreleaser.com/customization/publish/scm/github/
+https://github.com/settings/tokens
+https://github.com/hoto/fuzzy-repo-finder/settings/secrets/actions
 
 ### TODO:
 * Fix order when scrolling through projects
