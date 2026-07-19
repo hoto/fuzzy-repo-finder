@@ -72,7 +72,7 @@ func (display) displayProjects(projects *proj.Projects, selectedProjectIndex int
 
 func highlightedIfSelected(projects *proj.Projects, project proj.Project, selectedProjectIndex int) termbox.Attribute {
 	if project == projects.Get(selectedProjectIndex) {
-		return termbox.ColorCyan
+		return termbox.ColorRed
 	}
 	return termbox.ColorDefault
 }
